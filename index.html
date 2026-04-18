@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ReformApp</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F0E8;
+  --surface: #FFFFFF;
+  --surface2: #F0EBE0;
+  --primary: #C8430A;
+  --primary-dark: #A03508;
+  --primary-light: #F5C4B0;
+  --accent: #1A1A2E;
+  --text: #1A1A2E;
+  --text2: #6B6560;
+  --text3: #9E9890;
+  --border: #E2DBD0;
+  --success: #2D7A4F;
+  --success-bg: #E8F5EE;
+  --warning: #B8860B;
+  --shadow: 0 4px 24px rgba(26,26,46,0.08);
+  --shadow-lg: 0 8px 40px rgba(26,26,46,0.14);
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0;
+}
+
+/* PHONE WRAPPER */
+.phone {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* STATUS BAR */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  flex-shrink: 0;
+}
+.status-icons { display: flex; gap: 6px; align-items: center; }
+.status-icons span { font-size: 14px; }
+
+/* SCREENS */
+.screen { display: none; flex-direction: column; flex: 1; animation: fadeIn 0.3s ease; }
+.screen.active { display: flex; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+/* ======================== SPLASH ======================== */
+#splash {
+  background: var(--accent);
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+#splash::before {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,67,10,0.3) 0%, transparent 70%);
+  top: -80px; right: -80px;
+}
+#splash::after {
+  content: '';
+  position: absolute;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,67,10,0.2) 0%, transparent 70%);
+  bottom: 60px; left: -60px;
+}
+.splash-content { text-align: center; z-index: 1; padding: 40px; }
+.splash-icon {
+  width: 90px; height: 90px;
+  background: var(--primary);
+  border-radius: 28px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 44px;
+  margin: 0 auto 28px;
+  box-shadow: 0 12px 40px rgba(200,67,10,0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+.splash-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.splash-logo span { color: var(--primary); }
+.splash-sub { color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 8px; letter-spacing: 2px; text-transform: uppercase; }
+.splash-btn {
+  margin-top: 60px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  padding: 18px 48px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(200,67,10,0.5);
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: block; width: 100%;
+}
+.splash-btn:active { transform: scale(0.97); box-shadow: 0 4px 16px rgba(200,67,10,0.4); }
+
+/* ======================== HEADER ======================== */
+.app-header {
+  padding: 16px 24px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.header-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.header-logo span { color: var(--primary); }
+.header-back {
+  width: 40px; height: 40px;
+  background: var(--surface);
+  border: none;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: var(--shadow);
+}
+
+/* ======================== PROGRESS ======================== */
+.progress-bar {
+  padding: 0 24px 16px;
+  flex-shrink: 0;
+}
+.progress-steps {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.progress-step {
+  height: 4px;
+  flex: 1;
+  border-radius: 99px;
+  background: var(--border);
+  transition: background 0.4s;
+}
+.progress-step.done { background: var(--primary); }
+.progress-label { font-size: 12px; color: var(--text3); font-weight: 500; }
+.progress-label strong { color: var(--primary); }
+
+/* ======================== SCROLL CONTENT ======================== */
+.scroll-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 24px 120px;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-content::-webkit-scrollbar { display: none; }
+
+/* ======================== SECTION TITLE ======================== */
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.section-sub { font-size: 14px; color: var(--text2); margin-bottom: 24px; }
+
+/* ======================== STEP 1 — DATOS ======================== */
+.input-group { margin-bottom: 20px; }
+.input-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+  display: block;
+}
+.input-field {
+  width: 100%;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.input-field:focus { border-color: var(--primary); }
+
+/* COUNTER */
+.counter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  transition: border-color 0.2s;
+}
+.counter-row.active { border-color: var(--primary); }
+.counter-label { font-size: 15px; font-weight: 500; }
+.counter-controls { display: flex; align-items: center; gap: 12px; }
+.counter-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, transform 0.1s;
+}
+.counter-btn:active { transform: scale(0.9); }
+.counter-btn.plus { background: var(--primary); color: #fff; }
+.counter-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  min-width: 32px;
+  text-align: center;
+}
+
+/* TOGGLE */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.toggle-row.on { border-color: var(--primary); background: #FEF3EE; }
+.toggle-label { font-size: 15px; font-weight: 500; }
+.toggle-sub { font-size: 12px; color: var(--text3); }
+.toggle-switch {
+  width: 48px; height: 26px;
+  background: var(--border);
+  border-radius: 99px;
+  position: relative;
+  transition: background 0.25s;
+  flex-shrink: 0;
+}
+.toggle-switch.on { background: var(--primary); }
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  width: 20px; height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px; left: 3px;
+  transition: transform 0.25s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.toggle-switch.on::after { transform: translateX(22px); }
+
+/* ======================== STEP 2 — MATERIALES ======================== */
+.material-section { margin-bottom: 24px; }
+.material-section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--primary-light);
+  display: flex; align-items: center; gap: 8px;
+}
+.option-cards { display: flex; flex-direction: column; gap: 10px; }
+.option-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.option-card.selected {
+  border-color: var(--primary);
+  background: #FEF3EE;
+}
+.option-card.selected .option-check { background: var(--primary); border-color: var(--primary); }
+.option-card.selected .option-check::after { opacity: 1; }
+.option-check {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.2s;
+}
+.option-check::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.option-info { flex: 1; }
+.option-name { font-size: 14px; font-weight: 600; }
+.option-desc { font-size: 12px; color: var(--text3); margin-top: 2px; }
+.option-price {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: right;
+}
+.option-price span { display: block; font-family: 'Outfit', sans-serif; font-size: 11px; color: var(--text3); font-weight: 400; }
+
+/* ======================== STEP 3 — EXTRAS ======================== */
+.extras-grid { display: flex; flex-direction: column; gap: 12px; }
+.extra-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.extra-card.selected { border-color: var(--primary); background: #FEF3EE; }
+.extra-icon { font-size: 28px; flex-shrink: 0; }
+.extra-info { flex: 1; }
+.extra-name { font-size: 15px; font-weight: 600; }
+.extra-desc { font-size: 12px; color: var(--text3); margin-top: 3px; line-height: 1.4; }
+.extra-price { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--success); margin-top: 4px; }
+.extra-checkbox {
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  transition: all 0.2s;
+  color: #fff;
+}
+.extra-card.selected .extra-checkbox { background: var(--primary); border-color: var(--primary); }
+
+/* ======================== STEP 4 — RESULTADO ======================== */
+.result-hero {
+  background: var(--accent);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.result-hero::before {
+  content: '';
+  position: absolute;
+  width: 150px; height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,67,10,0.4), transparent);
+  top: -40px; right: -30px;
+}
+.result-label { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+.result-total {
+  font-family: 'Syne', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+.result-total span { font-size: 20px; vertical-align: top; margin-top: 6px; display: inline-block; }
+.result-sub { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 8px; }
+.result-badges { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.result-badge {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.8);
+  border-radius: 99px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* CAPÍTULOS */
+.capitulo-card {
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+.capitulo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.capitulo-name { font-size: 14px; font-weight: 600; flex: 1; }
+.capitulo-total {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-right: 8px;
+}
+.capitulo-arrow { font-size: 12px; color: var(--text3); transition: transform 0.2s; }
+.capitulo-arrow.open { transform: rotate(180deg); }
+.capitulo-items { display: none; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+.capitulo-items.open { display: block; }
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 6px 0;
+  gap: 8px;
+}
+.item-name { font-size: 12px; color: var(--text2); flex: 1; line-height: 1.4; }
+.item-calc { font-size: 11px; color: var(--text3); text-align: right; white-space: nowrap; }
+.item-subtotal { font-size: 12px; font-weight: 600; color: var(--text); text-align: right; white-space: nowrap; }
+
+/* IMPREVISTOS */
+.imprevistos-card {
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px dashed var(--border);
+}
+.imprevistos-label { font-size: 14px; color: var(--text2); }
+.imprevistos-val { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--warning); }
+
+/* CTA CONTRATISTAS */
+.cta-card {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-top: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-card::before {
+  content: '';
+  position: absolute;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  top: -30px; right: -30px;
+}
+.cta-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.cta-sub { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 20px; line-height: 1.5; }
+.cta-btn {
+  background: #fff;
+  color: var(--primary);
+  border: none;
+  border-radius: 99px;
+  padding: 14px 32px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: transform 0.15s;
+}
+.cta-btn:active { transform: scale(0.97); }
+
+/* CONTRATISTAS LIST */
+.contratista-card {
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.contratista-avatar {
+  width: 52px; height: 52px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.contratista-info { flex: 1; }
+.contratista-name { font-size: 15px; font-weight: 600; }
+.contratista-spec { font-size: 12px; color: var(--text3); margin-top: 2px; }
+.contratista-stars { color: #F59E0B; font-size: 12px; margin-top: 4px; }
+.contratista-price {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--success);
+  text-align: right;
+}
+.contratista-badge {
+  background: var(--success-bg);
+  color: var(--success);
+  border-radius: 99px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+/* ======================== BOTTOM BTN ======================== */
+.bottom-btn-wrap {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 420px;
+  padding: 16px 24px 28px;
+  background: linear-gradient(to top, var(--bg) 60%, transparent);
+  z-index: 100;
+}
+.bottom-btn {
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  padding: 18px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 8px 30px rgba(200,67,10,0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.bottom-btn:active { transform: scale(0.98); box-shadow: 0 4px 16px rgba(200,67,10,0.3); }
+.bottom-btn:disabled { background: var(--border); color: var(--text3); box-shadow: none; cursor: default; }
+
+/* INFO CHIP */
+.info-chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--text2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,26,46,0.6);
+  z-index: 200;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border-radius: 28px 28px 0 0;
+  padding: 32px 24px 48px;
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
+.modal-handle {
+  width: 40px; height: 4px;
+  background: var(--border);
+  border-radius: 99px;
+  margin: 0 auto 24px;
+}
+.modal-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+.modal-sub { font-size: 14px; color: var(--text2); margin-bottom: 24px; line-height: 1.5; }
+.modal-input {
+  width: 100%;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  margin-bottom: 12px;
+}
+.modal-input:focus { border-color: var(--primary); }
+.modal-btn {
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  padding: 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+/* TAG */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--surface2);
+  border-radius: 99px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--text2);
+  font-weight: 500;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+</style>
+</head>
+<body>
+<div class="phone">
+
+<!-- STATUS BAR -->
+<div class="status-bar" id="statusBar" style="display:none">
+  <span>9:41</span>
+  <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+</div>
+
+<!-- ==================== SPLASH ==================== -->
+<div class="screen active" id="splash">
+  <div class="splash-content">
+    <div class="splash-icon">🏗️</div>
+    <div class="splash-logo">Reform<span>App</span></div>
+    <div class="splash-sub">Cotiza tu reforma al instante</div>
+    <button class="splash-btn" onclick="goTo('step1')">Comenzar cotización →</button>
+    <div style="margin-top:20px; color:rgba(255,255,255,0.3); font-size:12px;">Ya tienes cotización? <span style="color:rgba(255,255,255,0.6); text-decoration:underline; cursor:pointer">Iniciar sesión</span></div>
+  </div>
+</div>
+
+<!-- ==================== STEP 1 — DATOS DEL APTO ==================== -->
+<div class="screen" id="step1">
+  <div class="status-bar" style="display:flex">
+    <span>9:41</span>
+    <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+  </div>
+  <div class="app-header">
+    <button class="header-back" onclick="goTo('splash')">←</button>
+    <div class="header-logo">Reform<span>App</span></div>
+    <div style="width:40px"></div>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-steps">
+      <div class="progress-step done"></div>
+      <div class="progress-step"></div>
+      <div class="progress-step"></div>
+      <div class="progress-step"></div>
+    </div>
+    <div class="progress-label">Paso <strong>1 de 4</strong> · Datos del apartamento</div>
+  </div>
+  <div class="scroll-content">
+    <div class="section-title">¿Cómo es tu apartamento?</div>
+    <div class="section-sub">Ingresa los datos básicos para calcular tu presupuesto</div>
+
+    <div class="input-group">
+      <label class="input-label">📐 Área total del apartamento</label>
+      <input class="input-field" type="number" id="areaTotal" placeholder="Ej: 65" min="20" max="300" oninput="updateAreaTags()">
+      <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap" id="areaTags">
+        <div class="tag" onclick="setArea(45)">45 m²</div>
+        <div class="tag" onclick="setArea(60)">60 m²</div>
+        <div class="tag" onclick="setArea(75)">75 m²</div>
+        <div class="tag" onclick="setArea(90)">90 m²</div>
+        <div class="tag" onclick="setArea(120)">120 m²</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="input-group">
+      <label class="input-label">🛏️ Número de habitaciones</label>
+      <div class="counter-row" id="habRow">
+        <span class="counter-label">Habitaciones</span>
+        <div class="counter-controls">
+          <button class="counter-btn" onclick="counter('hab',-1)">−</button>
+          <span class="counter-val" id="habVal">2</span>
+          <button class="counter-btn plus" onclick="counter('hab',1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">🚿 Número de baños</label>
+      <div class="counter-row" id="banRow">
+        <span class="counter-label">Baños completos</span>
+        <div class="counter-controls">
+          <button class="counter-btn" onclick="counter('ban',-1)">−</button>
+          <span class="counter-val" id="banVal">1</span>
+          <button class="counter-btn plus" onclick="counter('ban',1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="input-group">
+      <label class="input-label">📦 ¿Qué espacios tiene?</label>
+      <div class="toggle-row" id="togCocina" onclick="toggleExtra('cocina')">
+        <div><div class="toggle-label">🍳 Cocina</div><div class="toggle-sub">Incluye mueble y salpicadero</div></div>
+        <div class="toggle-switch" id="swCocina"></div>
+      </div>
+      <div class="toggle-row on" id="togSala" onclick="toggleExtra('sala')">
+        <div><div class="toggle-label">🛋️ Sala - Comedor</div><div class="toggle-sub">Pisos y paredes</div></div>
+        <div class="toggle-switch on" id="swSala"></div>
+      </div>
+      <div class="toggle-row" id="togBalcon" onclick="toggleExtra('balcon')">
+        <div><div class="toggle-label">🌿 Balcón / terraza</div><div class="toggle-sub">Piso Gress antideslizante</div></div>
+        <div class="toggle-switch" id="swBalcon"></div>
+      </div>
+      <div class="toggle-row" id="togLavadero" onclick="toggleExtra('lavadero')">
+        <div><div class="toggle-label">🧺 Lavadero</div><div class="toggle-sub">Mueble lavadero incluido</div></div>
+        <div class="toggle-switch" id="swLavadero"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-btn-wrap">
+    <button class="bottom-btn" onclick="goToStep2()">Elegir materiales →</button>
+  </div>
+</div>
+
+<!-- ==================== STEP 2 — MATERIALES ==================== -->
+<div class="screen" id="step2">
+  <div class="status-bar" style="display:flex">
+    <span>9:41</span>
+    <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+  </div>
+  <div class="app-header">
+    <button class="header-back" onclick="goTo('step1')">←</button>
+    <div class="header-logo">Reform<span>App</span></div>
+    <div style="width:40px"></div>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-steps">
+      <div class="progress-step done"></div>
+      <div class="progress-step done"></div>
+      <div class="progress-step"></div>
+      <div class="progress-step"></div>
+    </div>
+    <div class="progress-label">Paso <strong>2 de 4</strong> · Selección de materiales</div>
+  </div>
+  <div class="scroll-content">
+    <div class="section-title">¿Qué materiales prefieres?</div>
+    <div class="section-sub">Selecciona una opción por cada categoría</div>
+
+    <!-- PISOS -->
+    <div class="material-section">
+      <div class="material-section-title">🏠 Pisos - Área principal</div>
+      <div class="option-cards">
+        <div class="option-card selected" id="piso_porcelanato" onclick="selectMat('piso','porcelanato',this)">
+          <div class="option-check"></div>
+          <div class="option-info">
+            <div class="option-name">Porcelanato TEKA</div>
+            <div class="option-desc">Resistente, fácil limpieza, acabado brillante</div>
+          </div>
+          <div class="option-price">$78,274/m²<span>mat + inst.</span></div>
+        </div>
+        <div class="option-card" id="piso_ceramica" onclick="selectMat('piso','ceramica',this)">
+          <div class="option-check"></div>
+          <div class="option-info">
+            <div class="option-name">Cerámica económica</div>
+            <div class="option-desc">Buena relación calidad/precio</div>
+          </div>
+          <div class="option-price">$55,018/m²<span>mat + inst.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENCHAPE BAÑOS -->
+    <div class="material-section">
+      <div class="material-section-title">🚿 Enchape de baños</div>
+      <div class="option-cards">
+        <div class="option-card selected" id="bano_ceramica" onclick="selectMat('bano','ceramica',this)">
+          <div class="option-check"></div>
+          <div class="option-info">
+            <div class="option-name">Cerámica Jaya</div>
+            <div class="option-desc">Material nacional, durabilidad comprobada</div>
+          </div>
+          <div class="option-price">$65,518/m²<span>mat + inst.</span></div>
+        </div>
+        <div class="option-card" id="bano_premium" onclick="selectMat('bano','premium',this)">
+          <div class="option-check"></div>
+          <div class="option-info">
+            <div class="option-name">Enchape premium</div>
+            <div class="option-desc">Mayor resistencia y diseño</div>
+          </div>
+          <div class="option-price">$95,518/m²<span>mat + inst.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PINTURA -->
+    <div class="material-section">
+      <div class="material-section-title">🎨 Estuco y pintura</div>
+      <div class="option-cards">
+        <div class="option-card selected" id="pint_completo" onclick="selectMat('pint','completo',this)">
+          <div class="option-check"></div>
+          <div class="option-info">
+            <div class="option-name">Estuco + Pintura 3 manos</div>
+            <div class="option-desc">Fondeo + acabado completo, liso perfecto</div>
+          </div>
+          <div class="option-price">$43,537/m²<span>todo costo</span></div>
+        </div>
+        <div class="option-card" id="pint_solo" onclick="selectMat('pint','solo',this)">
+          <div class="option-check"></div>
+          <div class="option-info">
+            <div class="option-name">Solo pintura</div>
+            <div class="option-desc">Fondeo + 3 manos sin estuco</div>
+          </div>
+          <div class="option-price">$22,900/m²<span>todo costo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BAÑOS EQUIPOS -->
+    <div class="material-section">
+      <div class="material-section-title">🪠 Equipos sanitarios (por baño)</div>
+      <div class="option-cards">
+        <div class="option-card selected" id="san_basico" onclick="selectMat('san','basico',this)">
+          <div class="option-check"></div>
+          <div class="option-info">
+            <div class="option-name">Básico - Aquaplus</div>
+            <div class="option-desc">Sanitario + lavamanos + griferías + instalación</div>
+          </div>
+          <div class="option-price">$960,000<span>por baño</span></div>
+        </div>
+        <div class="option-card" id="san_premium" onclick="selectMat('san','premium',this)">
+          <div class="option-check"></div>
+          <div class="option-info">
+            <div class="option-name">Premium completo</div>
+            <div class="option-desc">Cabina de ducha incluida</div>
+          </div>
+          <div class="option-price">$1,710,000<span>por baño</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="bottom-btn-wrap">
+    <button class="bottom-btn" onclick="goTo('step3')">Ver adicionales →</button>
+  </div>
+</div>
+
+<!-- ==================== STEP 3 — EXTRAS ==================== -->
+<div class="screen" id="step3">
+  <div class="status-bar" style="display:flex">
+    <span>9:41</span>
+    <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+  </div>
+  <div class="app-header">
+    <button class="header-back" onclick="goTo('step2')">←</button>
+    <div class="header-logo">Reform<span>App</span></div>
+    <div style="width:40px"></div>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-steps">
+      <div class="progress-step done"></div>
+      <div class="progress-step done"></div>
+      <div class="progress-step done"></div>
+      <div class="progress-step"></div>
+    </div>
+    <div class="progress-label">Paso <strong>3 de 4</strong> · Adicionales</div>
+  </div>
+  <div class="scroll-content">
+    <div class="section-title">¿Algo más?</div>
+    <div class="section-sub">Selecciona los elementos adicionales que necesitas</div>
+
+    <div class="extras-grid">
+      <div class="extra-card" id="extGas" onclick="toggleExtraItem('extGas','gas')">
+        <div class="extra-icon">🔥</div>
+        <div class="extra-info">
+          <div class="extra-name">Red de gas + calentador</div>
+          <div class="extra-desc">Instalación y legalización de red de gas interior + calentador</div>
+          <div class="extra-price">$2,380,000</div>
+        </div>
+        <div class="extra-checkbox" id="chkGas"></div>
+      </div>
+      <div class="extra-card" id="extClosets" onclick="toggleExtraItem('extClosets','closets')">
+        <div class="extra-icon">🚪</div>
+        <div class="extra-info">
+          <div class="extra-name">Closets y puertas madera</div>
+          <div class="extra-desc">Puertas habitaciones + closet principal + closet secundario</div>
+          <div class="extra-price">$4,389,551</div>
+        </div>
+        <div class="extra-checkbox" id="chkClosets"></div>
+      </div>
+      <div class="extra-card" id="extCieloFalso" onclick="toggleExtraItem('extCieloFalso','cieloFalso')">
+        <div class="extra-icon">⬜</div>
+        <div class="extra-info">
+          <div class="extra-name">Cielo falso baños</div>
+          <div class="extra-desc">Cielo falso en superboard 6mm para baños (por m²)</div>
+          <div class="extra-price">$122,000/m²</div>
+        </div>
+        <div class="extra-checkbox" id="chkCieloFalso"></div>
+      </div>
+      <div class="extra-card" id="extRevoque" onclick="toggleExtraItem('extRevoque','revoque')">
+        <div class="extra-icon">🧱</div>
+        <div class="extra-info">
+          <div class="extra-name">Revoque de paredes</div>
+          <div class="extra-desc">Incluye mano de obra, arena, cemento y transporte</div>
+          <div class="extra-price">Según m²</div>
+        </div>
+        <div class="extra-checkbox" id="chkRevoque"></div>
+      </div>
+      <div class="extra-card" id="extElec" onclick="toggleExtraItem('extElec','electrica')">
+        <div class="extra-icon">⚡</div>
+        <div class="extra-info">
+          <div class="extra-name">Red eléctrica</div>
+          <div class="extra-desc">Instalación y colocación de aparatos eléctricos</div>
+          <div class="extra-price">Según puntos</div>
+        </div>
+        <div class="extra-checkbox" id="chkElec"></div>
+      </div>
+      <div class="extra-card" id="extHidro" onclick="toggleExtraItem('extHidro','hidro')">
+        <div class="extra-icon">💧</div>
+        <div class="extra-info">
+          <div class="extra-name">Red hidrosanitaria</div>
+          <div class="extra-desc">Tubería sanitaria y red de abasto, oficial plomero</div>
+          <div class="extra-price">Según días</div>
+        </div>
+        <div class="extra-checkbox" id="chkHidro"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-btn-wrap">
+    <button class="bottom-btn" onclick="calcularYMostrar()">Ver mi presupuesto 🎉</button>
+  </div>
+</div>
+
+<!-- ==================== STEP 4 — RESULTADO ==================== -->
+<div class="screen" id="step4">
+  <div class="status-bar" style="display:flex">
+    <span>9:41</span>
+    <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+  </div>
+  <div class="app-header">
+    <button class="header-back" onclick="goTo('step3')">←</button>
+    <div class="header-logo">Reform<span>App</span></div>
+    <div style="width:40px"></div>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-steps">
+      <div class="progress-step done"></div>
+      <div class="progress-step done"></div>
+      <div class="progress-step done"></div>
+      <div class="progress-step done"></div>
+    </div>
+    <div class="progress-label">Paso <strong>4 de 4</strong> · Tu presupuesto listo ✅</div>
+  </div>
+  <div class="scroll-content">
+
+    <!-- HERO TOTAL -->
+    <div class="result-hero">
+      <div class="result-label">Presupuesto estimado</div>
+      <div class="result-total"><span>$</span><span id="totalDisplay">0</span></div>
+      <div class="result-sub" id="resultSub">Incluye materiales, mano de obra e imprevistos</div>
+      <div class="result-badges" id="resultBadges"></div>
+    </div>
+
+    <!-- DESGLOSE -->
+    <div style="font-family:'Syne',sans-serif; font-size:16px; font-weight:700; margin-bottom:14px;">Desglose por capítulo</div>
+    <div id="capitulos-list"></div>
+
+    <!-- IMPREVISTOS -->
+    <div class="imprevistos-card">
+      <div>
+        <div class="imprevistos-label">⚠️ Imprevistos (10%)</div>
+        <div style="font-size:11px; color:var(--text3); margin-top:2px">Recomendado por normativa</div>
+      </div>
+      <div class="imprevistos-val" id="imprevistosVal">$0</div>
+    </div>
+    <div class="imprevistos-card" style="background:var(--accent); border-color:var(--accent)">
+      <div style="color:rgba(255,255,255,0.7); font-size:14px; font-weight:600">TOTAL FINAL</div>
+      <div style="font-family:'Syne',sans-serif; font-size:18px; font-weight:800; color:#fff" id="totalFinalVal">$0</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CONTRATISTAS -->
+    <div style="font-family:'Syne',sans-serif; font-size:16px; font-weight:700; margin-bottom:6px;">Contratistas disponibles</div>
+    <div style="font-size:13px; color:var(--text2); margin-bottom:16px;">En tu zona — Medellín</div>
+
+    <div class="contratista-card">
+      <div class="contratista-avatar" style="background:#FEF3EE">🦺</div>
+      <div class="contratista-info">
+        <div class="contratista-name">Carlos Mejía Obras</div>
+        <div class="contratista-spec">Remodelaciones VIS y No-VIS · 8 años</div>
+        <div class="contratista-stars">★★★★★ <span style="color:var(--text3)">4.9 (47 reseñas)</span></div>
+        <span class="contratista-badge">✓ Verificado</span>
+      </div>
+      <div class="contratista-price">Plan Pro<br><span style="font-size:10px; color:var(--text3)">Responde en &lt;2h</span></div>
+    </div>
+    <div class="contratista-card">
+      <div class="contratista-avatar" style="background:#E8F5EE">🔨</div>
+      <div class="contratista-info">
+        <div class="contratista-name">Reformas Antioquia</div>
+        <div class="contratista-spec">Acabados completos · 12 años</div>
+        <div class="contratista-stars">★★★★☆ <span style="color:var(--text3)">4.7 (92 reseñas)</span></div>
+        <span class="contratista-badge">✓ Verificado</span>
+      </div>
+      <div class="contratista-price">Plan Pro<br><span style="font-size:10px; color:var(--text3)">Responde en &lt;4h</span></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-card">
+      <div class="cta-title">¿Listo para empezar?</div>
+      <div class="cta-sub">Contacta un contratista ahora y recibe visita técnica gratuita en tu apartamento</div>
+      <button class="cta-btn" onclick="openModal()">📞 Contactar contratista</button>
+    </div>
+
+    <div style="text-align:center; margin-top:20px;">
+      <button onclick="goTo('step1')" style="background:none; border:none; color:var(--text3); font-family:'Outfit',sans-serif; font-size:13px; cursor:pointer; text-decoration:underline">Nueva cotización</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONTACTO -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Contactar contratista</div>
+    <div class="modal-sub">Te enviamos tu presupuesto y conectamos con los mejores contratistas de tu zona</div>
+    <input class="modal-input" type="text" placeholder="Tu nombre completo">
+    <input class="modal-input" type="tel" placeholder="Número de WhatsApp">
+    <input class="modal-input" type="text" placeholder="Dirección del apartamento">
+    <button class="modal-btn" onclick="closeModal(); alert('¡Perfecto! En menos de 2 horas un contratista verificado te contactará por WhatsApp 🎉')">Enviar solicitud por WhatsApp →</button>
+  </div>
+</div>
+
+</div><!-- /phone -->
+
+<script>
+// ===================== STATE =====================
+const state = {
+  area: 0, hab: 2, ban: 1,
+  cocina: false, sala: true, balcon: false, lavadero: false,
+  piso: 'porcelanato', bano: 'ceramica', pint: 'completo', san: 'basico',
+  extras: { gas: false, closets: false, cieloFalso: false, revoque: false, electrica: false, hidro: false }
+};
+
+// ===================== PRECIOS (de tu base de datos real) =====================
+const PRECIOS = {
+  // Cap 10 - Pisos
+  piso_porcelanato_mat: 50256,     // m2
+  piso_porcelanato_inst: 28018,    // m2
+  piso_porcelanato_pegante: 95000, // bto cada ~25m2
+  mortero_inst: 17000,             // m2
+  mortero_mat: 550000,             // m3 cada ~20m2
+  piso_ceramica_mat: 37500,        // m2
+  piso_ceramica_inst: 28018,       // m2
+  piso_gress_mat: 50256,           // m2 balcón
+  piso_gress_inst: 28018,          // m2
+  zocalo_mat: 66300,               // m2
+  zocalo_inst: 12000,              // ml
+  transp_enchape: 250000,          // global
+  transp_pegacor: 80000,           // global
+  // enchape baños
+  enchape_ceramica_mat: 37500,     // m2
+  enchape_ceramica_inst: 28018,    // m2
+  enchape_premium_mat: 67500,      // m2
+  enchape_premium_inst: 28018,     // m2
+  // salpicadero cocina
+  salpicadero_mat: 66300,          // m2
+  salpicadero_inst: 28018,         // m2
+  // Cap 9 - Revoques
+  revoque_inst: 16686,             // m2
+  revoque_arena: 280000,           // m3 cada ~10m2
+  revoque_cemento: 32300,          // bto cada ~8m2
+  revoque_agua: 7456,              // glon cada ~15m2
+  revoque_transp: 140000,          // global
+  // Cap 11 - Hidro
+  tubo_sanitario: 109900,          // glo
+  plomero_dia: 153000,             // día
+  tubo_abasto: 109900,             // glo
+  // Cap 12 - Eléctrica
+  aparato_electrico: 7500,         // un
+  // Cap 13 - Gas
+  calentador: 780000,              // un
+  transp_calentador: 150000,       // un
+  gas_instalacion: 1450000,        // un
+  // Cap 15 - Cielo falso
+  cielo_falso: 122000,             // m2
+  // Cap 16 - Carp metálica
+  cabina_bano: 750000,             // un
+  // Cap 17 - Carp madera
+  puerta_hab: 778551,              // un
+  puerta_bano: 586000,             // un
+  closet_principal: 1775000,       // un
+  closet_sec: 1250000,             // un
+  mueble_lavadero: 480000,         // un
+  // Cap 18 - Baños
+  sanitario: 280000,               // un
+  lavamanos: 140000,               // un
+  transp_san: 240000,              // glo
+  griferia_lava: 100000,           // un
+  griferia_ducha: 100000,          // un
+  inst_san: 100000,                // un
+  // Cap 19 - Cocina
+  mueble_cocina_mat: 1500000,      // glo
+  mueble_cocina_inst: 500000,      // glo
+  mueble_cocina_transp: 200000,    // glo
+  // Cap 20 - Estuco y pintura
+  estuco: 20837,                   // m2
+  pint_fondeo: 7800,               // m2
+  pint_acabado: 15100,             // m2
+  pint_transp: 150000,             // global
+  // Cap 30 - Aseo
+  aseo_dia: 145000,                // día
+  retiro_escombros: 550000,        // viajes
+};
+
+// ===================== HELPERS =====================
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString('es-CO');
+}
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function setArea(v) {
+  document.getElementById('areaTotal').value = v;
+  state.area = v;
+}
+function updateAreaTags() {
+  state.area = parseFloat(document.getElementById('areaTotal').value) || 0;
+}
+function counter(key, delta) {
+  const mins = {hab:1, ban:1};
+  const maxs = {hab:5, ban:4};
+  state[key] = Math.max(mins[key], Math.min(maxs[key], state[key] + delta));
+  document.getElementById(key+'Val').textContent = state[key];
+  document.getElementById(key+'Row').classList.toggle('active', true);
+}
+function toggleExtra(key) {
+  state[key] = !state[key];
+  const row = document.getElementById('tog'+key.charAt(0).toUpperCase()+key.slice(1));
+  const sw = document.getElementById('sw'+key.charAt(0).toUpperCase()+key.slice(1));
+  row.classList.toggle('on', state[key]);
+  sw.classList.toggle('on', state[key]);
+}
+function selectMat(cat, val, el) {
+  state[cat] = val;
+  document.querySelectorAll('[id^="'+cat+'_"]').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function toggleExtraItem(cardId, key) {
+  state.extras[key] = !state.extras[key];
+  const card = document.getElementById(cardId);
+  const chk = document.getElementById('chk'+key.charAt(0).toUpperCase()+key.slice(1));
+  card.classList.toggle('selected', state.extras[key]);
+  if (chk) chk.textContent = state.extras[key] ? '✓' : '';
+}
+function openModal() { document.getElementById('modalOverlay').classList.add('open'); }
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalOverlay'))
+    document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// ===================== STEP 2 GATE =====================
+function goToStep2() {
+  state.area = parseFloat(document.getElementById('areaTotal').value) || 0;
+  if (state.area < 20) { alert('Por favor ingresa el área del apartamento (mínimo 20 m²)'); return; }
+  goTo('step2');
+}
+
+// ===================== CÁLCULO PRINCIPAL =====================
+function calcularYMostrar() {
+  const a = state.area;
+  const hab = state.hab;
+  const ban = state.ban;
+  const capList = [];
+
+  // Factores de área por espacio
+  const areaSala = state.sala ? a * 0.30 : 0;
+  const areaHabs = a * 0.45;
+  const areaHabPorUno = areaHabs / hab;
+  const areaBanio = 5.5; // m2 promedio por baño
+  const areaCocina = state.cocina ? a * 0.12 : 0;
+  const areaBalcon = state.balcon ? a * 0.08 : 0;
+  const areaPisoTotal = areaSala + areaHabs + (state.cocina ? areaCocina : 0);
+  const areaParedes = a * 2.8; // estimado perimetro*altura
+  const areaCieloFalso = areaBanio * ban;
+
+  // === CAP 10: PISOS ===
+  let cap10Items = [];
+  // Mortero nivelación (toda la zona de pisos)
+  const morteroM3 = areaPisoTotal / 20;
+  cap10Items.push({ n:'Vaciado y paleteado mortero', u:'m²', c:areaPisoTotal, v:PRECIOS.mortero_inst });
+  cap10Items.push({ n:'Mortero de nivelación', u:'m³', c:morteroM3, v:PRECIOS.mortero_mat });
+
+  if (state.piso === 'porcelanato') {
+    const btos = Math.ceil(areaPisoTotal / 25);
+    cap10Items.push({ n:'Piso porcelanato TEKA', u:'m²', c:areaPisoTotal, v:PRECIOS.piso_porcelanato_mat });
+    cap10Items.push({ n:'Instalación porcelanato', u:'m²', c:areaPisoTotal, v:PRECIOS.piso_porcelanato_inst });
+    cap10Items.push({ n:'Pegafast porcelanato', u:'bto', c:btos, v:PRECIOS.piso_porcelanato_pegante });
+  } else {
+    cap10Items.push({ n:'Piso cerámica', u:'m²', c:areaPisoTotal, v:PRECIOS.piso_ceramica_mat });
+    cap10Items.push({ n:'Instalación cerámica', u:'m²', c:areaPisoTotal, v:PRECIOS.piso_ceramica_inst });
+  }
+
+  // Zócalo (perimetro aprox)
+  const mlZocalo = Math.sqrt(areaPisoTotal) * 4;
+  cap10Items.push({ n:'Zócalo porcelanato', u:'ml', c:mlZocalo, v:PRECIOS.zocalo_inst });
+  cap10Items.push({ n:'Material zócalo', u:'m²', c:mlZocalo*0.1, v:PRECIOS.zocalo_mat });
+
+  // Balcón
+  if (state.balcon) {
+    cap10Items.push({ n:'Piso Gress balcón', u:'m²', c:areaBalcon, v:PRECIOS.piso_gress_mat });
+    cap10Items.push({ n:'Instalación Gress', u:'m²', c:areaBalcon, v:PRECIOS.piso_gress_inst });
+  }
+
+  // Enchape baños
+  const areaEnchapePorBano = areaBanio * 2.4; // paredes + piso
+  for (let i=0; i<ban; i++) {
+    if (state.bano === 'ceramica') {
+      cap10Items.push({ n:`Enchape cerámica baño ${i+1}`, u:'m²', c:areaEnchapePorBano, v:PRECIOS.enchape_ceramica_mat });
+      cap10Items.push({ n:`Instalación enchape baño ${i+1}`, u:'m²', c:areaEnchapePorBano, v:PRECIOS.enchape_ceramica_inst });
+    } else {
+      cap10Items.push({ n:`Enchape premium baño ${i+1}`, u:'m²', c:areaEnchapePorBano, v:PRECIOS.enchape_premium_mat });
+      cap10Items.push({ n:`Instalación enchape baño ${i+1}`, u:'m²', c:areaEnchapePorBano, v:PRECIOS.enchape_premium_inst });
+    }
+  }
+
+  // Salpicadero cocina
+  if (state.cocina) {
+    cap10Items.push({ n:'Salpicadero cocina - material', u:'m²', c:4, v:PRECIOS.salpicadero_mat });
+    cap10Items.push({ n:'Salpicadero cocina - instalación', u:'m²', c:4, v:PRECIOS.salpicadero_inst });
+  }
+
+  // Transportes
+  cap10Items.push({ n:'Transporte enchape', u:'glo', c:1, v:PRECIOS.transp_enchape });
+  cap10Items.push({ n:'Transporte pegacor', u:'glo', c:1, v:PRECIOS.transp_pegacor });
+
+  capList.push({ nombre:'10. Pisos, zócalos y enchapes', items: cap10Items });
+
+  // === CAP 20: ESTUCO Y PINTURA ===
+  let cap20Items = [];
+  const areaParPint = areaParedes - (areaEnchapePorBano * ban) - (state.cocina ? 4 : 0);
+  if (state.pint === 'completo') {
+    cap20Items.push({ n:'Estuco liso paredes', u:'m²', c:areaParPint, v:PRECIOS.estuco });
+    cap20Items.push({ n:'Pintura fondeo paredes', u:'m²', c:areaParPint, v:PRECIOS.pint_fondeo });
+    cap20Items.push({ n:'Pintura 3 manos paredes', u:'m²', c:areaParPint, v:PRECIOS.pint_acabado });
+    cap20Items.push({ n:'Estuco cielo', u:'m²', c:a, v:PRECIOS.estuco });
+    cap20Items.push({ n:'Pintura fondeo cielo', u:'m²', c:a, v:PRECIOS.pint_fondeo });
+    cap20Items.push({ n:'Pintura 3 manos cielo', u:'m²', c:a, v:PRECIOS.pint_acabado });
+  } else {
+    cap20Items.push({ n:'Pintura fondeo paredes', u:'m²', c:areaParPint, v:PRECIOS.pint_fondeo });
+    cap20Items.push({ n:'Pintura 3 manos paredes', u:'m²', c:areaParPint, v:PRECIOS.pint_acabado });
+    cap20Items.push({ n:'Pintura fondeo cielo', u:'m²', c:a, v:PRECIOS.pint_fondeo });
+    cap20Items.push({ n:'Pintura 3 manos cielo', u:'m²', c:a, v:PRECIOS.pint_acabado });
+  }
+  // Pintura baños
+  for(let i=0;i<ban;i++){
+    cap20Items.push({ n:`Pintura fondeo baño ${i+1}`, u:'m²', c:4, v:PRECIOS.pint_fondeo });
+    cap20Items.push({ n:`Pintura acabado baño ${i+1}`, u:'m²', c:4, v:PRECIOS.pint_acabado });
+  }
+  cap20Items.push({ n:'Transporte estuco y pintura', u:'glo', c:1, v:PRECIOS.pint_transp });
+  capList.push({ nombre:'20. Estuco y pintura', items: cap20Items });
+
+  // === CAP 18: BAÑOS EQUIPOS ===
+  let cap18Items = [];
+  for(let i=0; i<ban; i++){
+    cap18Items.push({ n:`Sanitario baño ${i+1}`, u:'un', c:1, v:PRECIOS.sanitario });
+    cap18Items.push({ n:`Lavamanos baño ${i+1}`, u:'un', c:1, v:PRECIOS.lavamanos });
+    cap18Items.push({ n:`Grifería lavamanos baño ${i+1}`, u:'un', c:1, v:PRECIOS.griferia_lava });
+    cap18Items.push({ n:`Grifería ducha baño ${i+1}`, u:'un', c:1, v:PRECIOS.griferia_ducha });
+    cap18Items.push({ n:`Instalación aparatos baño ${i+1}`, u:'un', c:1, v:PRECIOS.inst_san });
+    if(state.san==='premium'){
+      cap18Items.push({ n:`Cabina de baño ${i+1}`, u:'un', c:1, v:PRECIOS.cabina_bano });
+    }
+  }
+  cap18Items.push({ n:'Transporte aparatos sanitarios', u:'glo', c:1, v:PRECIOS.transp_san });
+  capList.push({ nombre:'18. Muebles y equipos de baños', items: cap18Items });
+
+  // === CAP 19: COCINA ===
+  if(state.cocina){
+    capList.push({ nombre:'19. Muebles y equipos de cocina', items:[
+      { n:'Suministro mueble de cocina', u:'glo', c:1, v:PRECIOS.mueble_cocina_mat },
+      { n:'Instalación mueble cocina', u:'glo', c:1, v:PRECIOS.mueble_cocina_inst },
+      { n:'Transporte mueble cocina', u:'glo', c:1, v:PRECIOS.mueble_cocina_transp },
+    ]});
+  }
+
+  // === CAP 30: ASEO ===
+  const diasAseo = Math.ceil(a / 20);
+  const viajes = Math.ceil(a / 30);
+  capList.push({ nombre:'30. Aseo y limpieza', items:[
+    { n:'Aseo y limpieza', u:'día', c:diasAseo, v:PRECIOS.aseo_dia },
+    { n:'Retiro de escombros', u:'viajes', c:viajes, v:PRECIOS.retiro_escombros },
+  ]});
+
+  // === EXTRAS ===
+  if(state.extras.gas){
+    capList.push({ nombre:'13. Red de gas interior', items:[
+      { n:'Calentador de gas', u:'un', c:1, v:PRECIOS.calentador },
+      { n:'Transporte calentador', u:'un', c:1, v:PRECIOS.transp_calentador },
+      { n:'Instalación red de gas y legalización', u:'un', c:1, v:PRECIOS.gas_instalacion },
+    ]});
+  }
+  if(state.extras.closets){
+    capList.push({ nombre:'17. Carpintería madera', items:[
+      { n:'Puerta habitación principal 0.80x2.10m', u:'un', c:1, v:PRECIOS.puerta_hab },
+      { n:'Puertas baños y habitaciones', u:'un', c:hab, v:PRECIOS.puerta_bano },
+      { n:'Closet habitación principal', u:'un', c:1, v:PRECIOS.closet_principal },
+      { n:'Closet habitación secundaria', u:'un', c:Math.max(0,hab-1), v:PRECIOS.closet_sec },
+      ...(state.lavadero ? [{ n:'Mueble lavadero', u:'un', c:1, v:PRECIOS.mueble_lavadero }] : []),
+    ]});
+  }
+  if(state.extras.cieloFalso){
+    capList.push({ nombre:'15. Estructura liviana', items:[
+      { n:'Cielo falso superboard 6mm baños', u:'m²', c:areaCieloFalso, v:PRECIOS.cielo_falso },
+    ]});
+  }
+  if(state.extras.revoque){
+    capList.push({ nombre:'9. Revoques', items:[
+      { n:'Colocación revoque', u:'m²', c:areaParedes, v:PRECIOS.revoque_inst },
+      { n:'Arena de revoque', u:'m³', c:areaParedes/10, v:PRECIOS.revoque_arena },
+      { n:'Cemento gris x 50kg', u:'bto', c:Math.ceil(areaParedes/8), v:PRECIOS.revoque_cemento },
+      { n:'Transporte cemento', u:'glo', c:1, v:PRECIOS.revoque_transp },
+    ]});
+  }
+  if(state.extras.electrica){
+    const puntos = Math.ceil(a / 5);
+    capList.push({ nombre:'12. Redes eléctricas', items:[
+      { n:'Colocación aparatos eléctricos', u:'un', c:puntos, v:PRECIOS.aparato_electrico },
+    ]});
+  }
+  if(state.extras.hidro){
+    const diasPlomero = Math.ceil(ban * 1.5);
+    capList.push({ nombre:'11. Red hidrosanitaria', items:[
+      { n:'Tubo PVC sanitario 4"', u:'glo', c:ban, v:PRECIOS.tubo_sanitario },
+      { n:'Oficial plomero (sanitaria)', u:'día', c:diasPlomero, v:PRECIOS.plomero_dia },
+      { n:'Tubo 1/2" PVC-presión', u:'glo', c:ban, v:PRECIOS.tubo_abasto },
+      { n:'Oficial plomero (abasto)', u:'día', c:diasPlomero, v:PRECIOS.plomero_dia },
+    ]});
+  }
+
+  // === CALCULAR TOTALES ===
+  let granTotal = 0;
+  const capsConTotal = capList.map(cap => {
+    const total = cap.items.reduce((s, item) => s + (item.c * item.v), 0);
+    granTotal += total;
+    return { ...cap, total };
+  });
+
+  const imprevistos = granTotal * 0.10;
+  const totalFinal = granTotal + imprevistos;
+
+  // === RENDERIZAR ===
+  document.getElementById('totalDisplay').textContent = Math.round(granTotal).toLocaleString('es-CO');
+  document.getElementById('imprevistosVal').textContent = fmt(imprevistos);
+  document.getElementById('totalFinalVal').textContent = fmt(totalFinal);
+
+  // Badges
+  const badgesEl = document.getElementById('resultBadges');
+  badgesEl.innerHTML = `
+    <div class="result-badge">📐 ${a} m²</div>
+    <div class="result-badge">🛏️ ${hab} hab</div>
+    <div class="result-badge">🚿 ${ban} baños</div>
+    ${state.cocina ? '<div class="result-badge">🍳 Cocina</div>' : ''}
+    ${state.balcon ? '<div class="result-badge">🌿 Balcón</div>' : ''}
+  `;
+
+  // Capítulos
+  const listEl = document.getElementById('capitulos-list');
+  listEl.innerHTML = '';
+  capsConTotal.forEach((cap, idx) => {
+    const div = document.createElement('div');
+    div.className = 'capitulo-card';
+    div.innerHTML = `
+      <div class="capitulo-header" onclick="toggleCap(${idx})">
+        <div class="capitulo-name">${cap.nombre}</div>
+        <div class="capitulo-total">${fmt(cap.total)}</div>
+        <div class="capitulo-arrow" id="arrow${idx}">▼</div>
+      </div>
+      <div class="capitulo-items" id="capItems${idx}">
+        ${cap.items.map(item => `
+          <div class="item-row">
+            <div class="item-name">${item.n}</div>
+            <div>
+              <div class="item-calc">${item.c.toFixed(1)} ${item.u} × ${fmt(item.v)}</div>
+              <div class="item-subtotal">${fmt(item.c * item.v)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    listEl.appendChild(div);
+  });
+
+  goTo('step4');
+}
+
+function toggleCap(idx) {
+  const items = document.getElementById('capItems'+idx);
+  const arrow = document.getElementById('arrow'+idx);
+  items.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+</script>
+</body>
+</html>
