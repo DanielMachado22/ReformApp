@@ -153,21 +153,39 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
   <div class="topnav"><button class="back" onclick="goTo('splash')">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
   <div class="scroll" id="contScroll">
     <div class="h1">Únete como <span>contratista</span></div>
-    <div class="sub">Recibe clientes que necesitan reformas en tu ciudad. Paga una mensualidad y empieza a crecer.</div>
+    <div class="sub">Recibe clientes que necesitan reformas en tu ciudad. Regístrate gratis por tiempo limitado.</div>
     <div class="fsec">Elige tu plan</div>
-    <div class="plan-card" id="planBasico" onclick="selPlan('basico')">
+
+    <!-- PLAN TACHADO -->
+    <div class="plan-card" id="planBasico" onclick="selPlan('basico')" style="opacity:.55;pointer-events:none;position:relative">
       <div class="plan-radio"></div>
-      <div class="plan-badge">Básico</div>
-      <div class="plan-name">Plan Básico</div>
-      <div class="plan-price">$150.000 <small>/ mes</small></div>
-      <ul class="plan-features"><li>Hasta 10 leads por mes</li><li>Perfil con fotos en la app</li><li>Notificación por WhatsApp</li><li>Badge de contratista verificado</li></ul>
+      <div style="position:absolute;top:0;left:0;right:0;bottom:0;border-radius:var(--r);background:repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(11,30,63,.04) 8px,rgba(11,30,63,.04) 9px);pointer-events:none;z-index:1"></div>
+      <div class="plan-badge">Estándar</div>
+      <div class="plan-name" style="text-decoration:line-through;color:var(--text3)">Plan Mensual</div>
+      <div class="plan-price" style="text-decoration:line-through;color:var(--text3)">$25.000 <small>/ mes</small></div>
+      <ul class="plan-features">
+        <li style="color:var(--text3)">Hasta 10 leads por mes</li>
+        <li style="color:var(--text3)">Perfil con fotos en la app</li>
+        <li style="color:var(--text3)">Notificación por WhatsApp</li>
+      </ul>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-12deg);background:var(--error,#C0392B);color:#fff;font-size:13px;font-weight:700;padding:6px 18px;border-radius:99px;white-space:nowrap;z-index:2;letter-spacing:.5px">NO DISPONIBLE</div>
     </div>
-    <div class="plan-card sel" id="planPro" onclick="selPlan('pro')">
+
+    <!-- PLAN GRATIS -->
+    <div class="plan-card sel" id="planPro" onclick="selPlan('pro')" style="border-color:var(--gold);position:relative">
       <div class="plan-radio"></div>
-      <div class="plan-badge pop">⭐ Más popular</div>
-      <div class="plan-name">Plan Pro</div>
-      <div class="plan-price">$350.000 <small>/ mes</small></div>
-      <ul class="plan-features"><li>Leads ilimitados</li><li>Apareces primero en resultados</li><li>Badge verificado + reseñas</li><li>Dashboard de estadísticas</li><li>Primer mes GRATIS</li></ul>
+      <div style="position:absolute;top:-1px;right:16px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-size:11px;font-weight:800;padding:4px 14px;border-radius:0 0 10px 10px;letter-spacing:.5px">⏳ TIEMPO LIMITADO</div>
+      <div class="plan-badge pop">🎁 Oferta de lanzamiento</div>
+      <div class="plan-name">Suscríbete Gratis</div>
+      <div class="plan-price" style="color:var(--success)">$0 <small>/ mes por ahora</small></div>
+      <ul class="plan-features">
+        <li>Leads ilimitados durante el período</li>
+        <li>Perfil verificado con fotos</li>
+        <li>Notificaciones por WhatsApp</li>
+        <li>Apareces primero en resultados</li>
+        <li>Dashboard de estadísticas</li>
+        <li>Sin tarjeta de crédito requerida</li>
+      </ul>
     </div>
     <div class="fsec">Tus datos</div>
     <div class="inpw"><label class="lbl">Nombre completo</label><input class="inp" id="cNombre" type="text" placeholder="Ej: Carlos Mejía"></div>
@@ -401,7 +419,7 @@ function calcular(){
   if(st.cocina)caps.push({n:'19. Muebles y equipos de cocina',items:[{n:'Suministro mueble de cocina',u:'glo',c:1,v:P.mu_mat},{n:'Instalación mueble cocina',u:'glo',c:1,v:P.mu_inst},{n:'Transporte mueble cocina',u:'glo',c:1,v:P.mu_tr}]});
   caps.push({n:'30. Aseo y limpieza',items:[{n:'Aseo y limpieza',u:'día',c:Math.ceil(a/20),v:P.aseo},{n:'Retiro de escombros',u:'viajes',c:Math.ceil(a/30),v:P.escombros}]});
   if(st.extras.gas)caps.push({n:'13. Red de gas interior',items:[{n:'Calentador de gas',u:'un',c:1,v:P.cal},{n:'Transporte calentador',u:'un',c:1,v:P.tr_cal},{n:'Instalación y legalización red de gas',u:'un',c:1,v:P.gas_ins}]});
-  if(st.extras.closets)caps.push({n:'17. Carpintería madera',items:[{n:'Puerta habitación principal 0.80x2.10m',u:'un',c:1,v:P.p_hab},{n:'Puertas baños y habitaciones',u:'un',c:hab,v:P.p_ban},{n:'Closet habitación principal',u:'un',c:1,v:P.cl_p},{n:'Closets secundarios',u:'un',c:Math.max(0,hab-1),v:P.cl_s},...(st.lavadero?[{n:'Mueble lavadero',u:'un',c:1,v:P.lavad}]:[]) ]});
+  if(st.extras.closets)caps.push({n:'17. Carpintería madera',items:[{n:'Puertas habitaciones (0.80x2.10m)',u:'un',c:hab,v:P.p_hab},{n:'Puertas de baños (0.70x2.10m)',u:'un',c:ban,v:P.p_ban},{n:'Closet habitación principal',u:'un',c:1,v:P.cl_p},{n:'Closets secundarios',u:'un',c:Math.max(0,hab-1),v:P.cl_s},...(st.lavadero?[{n:'Mueble lavadero',u:'un',c:1,v:P.lavad}]:[]) ]});
   if(st.extras.cieloFalso)caps.push({n:'15. Estructura liviana',items:[{n:'Cielo falso superboard 6mm baños',u:'m²',c:5.5*ban,v:P.cielo}]});
   if(st.extras.revoque)caps.push({n:'9. Revoques',items:[{n:'Colocación revoque',u:'m²',c:aPar,v:P.rev_inst},{n:'Arena de revoque',u:'m³',c:aPar/10,v:P.rev_are},{n:'Cemento gris x 50kg',u:'bto',c:Math.ceil(aPar/8),v:P.rev_cem},{n:'Transporte cemento',u:'glo',c:1,v:P.rev_tr}]});
   if(st.extras.electrica)caps.push({n:'12. Redes eléctricas',items:[{n:'Colocación aparatos eléctricos',u:'un',c:Math.ceil(a/5),v:P.ap_elec}]});
