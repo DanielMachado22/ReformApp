@@ -20,8 +20,7 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
 .screen{display:none;flex-direction:column;flex:1;animation:fadeUp .3s ease}
 .screen.active{display:flex}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.sbar{display:flex;justify-content:space-between;align-items:center;padding:14px 22px 6px;font-size:12px;font-weight:600}
-.sbar.light{color:rgba(255,255,255,.6)}.sbar.dark{color:var(--navy)}
+.sbar{display:none}
 .scroll{flex:1;overflow-y:auto;padding:0 22px 110px;-webkit-overflow-scrolling:touch}.scroll::-webkit-scrollbar{display:none}
 .topnav{display:flex;align-items:center;justify-content:space-between;padding:10px 22px 14px}
 .logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--navy)}.logo span{color:var(--gold-dark)}
@@ -219,12 +218,12 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
     <div class="h1">Selecciona tus <span>materiales</span></div>
     <div class="sub">Elige una opción por categoría. Los precios incluyen materiales e instalación.</div>
     <div class="mat-sec"><div class="mat-sec-title">🏠 Pisos — Área principal</div>
-      <div class="opt sel" id="m_piso_p" onclick="selM('piso','p',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Porcelanato TEKA</div><div class="opt-desc">Resistente, fácil limpieza, acabado brillante</div></div><div class="opt-price">$78.274/m²<small>mat + inst.</small></div></div>
-      <div class="opt" id="m_piso_c" onclick="selM('piso','c',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cerámica Jaya</div><div class="opt-desc">Excelente relación calidad / precio</div></div><div class="opt-price">$65.518/m²<small>mat + inst.</small></div></div>
+      <div class="opt sel" id="m_piso_p" onclick="selM('piso','p',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Porcelanato Premium</div><div class="opt-desc">Alta resistencia, acabado brillante, larga duración</div></div><div class="opt-price">$78.274/m²<small>mat + inst.</small></div></div>
+      <div class="opt" id="m_piso_c" onclick="selM('piso','c',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cerámica Básica</div><div class="opt-desc">Excelente relación calidad / precio</div></div><div class="opt-price">$65.518/m²<small>mat + inst.</small></div></div>
     </div>
     <div class="mat-sec"><div class="mat-sec-title">🚿 Enchape de baños</div>
-      <div class="opt sel" id="m_bano_c" onclick="selM('bano','c',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cerámica Jaya</div><div class="opt-desc">Material nacional, durabilidad comprobada</div></div><div class="opt-price">$65.518/m²<small>mat + inst.</small></div></div>
-      <div class="opt" id="m_bano_p" onclick="selM('bano','p',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Enchape premium</div><div class="opt-desc">Mayor resistencia y diseño diferencial</div></div><div class="opt-price">$95.518/m²<small>mat + inst.</small></div></div>
+      <div class="opt sel" id="m_bano_c" onclick="selM('bano','c',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cerámica Básica</div><div class="opt-desc">Material nacional, durabilidad comprobada</div></div><div class="opt-price">$65.518/m²<small>mat + inst.</small></div></div>
+      <div class="opt" id="m_bano_p" onclick="selM('bano','p',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Porcelanato Premium</div><div class="opt-desc">Mayor resistencia, diseño de alto impacto</div></div><div class="opt-price">$95.518/m²<small>mat + inst.</small></div></div>
     </div>
     <div class="mat-sec"><div class="mat-sec-title">🎨 Estuco y pintura</div>
       <div class="opt sel" id="m_pint_c" onclick="selM('pint','c',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Estuco + Pintura 3 manos</div><div class="opt-desc">Fondeo + acabado completo, liso perfecto</div></div><div class="opt-price">$43.537/m²<small>todo costo</small></div></div>
@@ -270,18 +269,27 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
     </div>
     <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);margin-bottom:12px">Desglose detallado</div>
     <div id="capsList"></div>
-    <div class="tot-row imp"><div><div class="tot-lbl">⚠️ Imprevistos (10%)</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Recomendado por norma técnica</div></div><div class="tot-val gold" id="resImp">$0</div></div>
-    <div class="tot-row final"><div class="tot-lbl w" style="font-weight:700">TOTAL FINAL</div><div class="tot-val w" id="resFinal">$0</div></div>
+
+    <div style="background:var(--navy);border-radius:var(--r-sm);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div class="tot-lbl w" style="font-weight:700">TOTAL REFORMA</div>
+      <div class="tot-val w" id="resTotal2">$0</div>
+    </div>
+
     <div class="divider"></div>
     <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);margin-bottom:4px">Contratistas disponibles</div>
     <div style="font-size:13px;color:var(--text3);margin-bottom:14px">Medellín · Verificados por ReformApp</div>
     <div class="cont-card"><div class="cont-av" style="background:#EEF2FF">🦺</div><div class="cont-info"><div class="cont-name">Carlos Mejía Obras</div><div class="cont-spec">Remodelaciones VIS y No-VIS · 8 años exp.</div><div class="cont-stars">★★★★★ <span style="color:var(--text3)">4.9 (47)</span></div><span class="cont-badge">✓ Verificado</span></div><div class="cont-plan">Plan Pro<br><span style="color:var(--text3);font-weight:400">Responde &lt;2h</span></div></div>
     <div class="cont-card"><div class="cont-av" style="background:var(--success-bg)">🔨</div><div class="cont-info"><div class="cont-name">Reformas Antioquia SAS</div><div class="cont-spec">Acabados completos · 12 años exp.</div><div class="cont-stars">★★★★☆ <span style="color:var(--text3)">4.7 (92)</span></div><span class="cont-badge">✓ Verificado</span></div><div class="cont-plan">Plan Pro<br><span style="color:var(--text3);font-weight:400">Responde &lt;4h</span></div></div>
-    <div class="cta">
-      <div class="cta-title">¿Listo para empezar?</div>
-      <div class="cta-sub">Déjanos tus datos y un contratista verificado te contacta por WhatsApp con visita técnica gratuita.</div>
-      <button class="cta-btn" onclick="abrirModal()">📞 Contactar contratista ahora</button>
+
+    <!-- CTA ASESORÍA PERSONALIZADA -->
+    <div style="background:linear-gradient(135deg,var(--gold-dark) 0%,var(--gold) 100%);border-radius:var(--r);padding:26px;margin-top:18px;position:relative;overflow:hidden">
+      <div style="position:absolute;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.12);top:-20px;right:-20px"></div>
+      <div style="font-size:20px;margin-bottom:10px">🏗️</div>
+      <div style="font-family:'Playfair Display',serif;font-size:19px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.2">¿Quieres contratar toda la reforma?</div>
+      <div style="font-size:13px;color:var(--navy);opacity:.75;margin-bottom:20px;line-height:1.6">Contáctanos para una asesoría personalizada. Te acompañamos desde la cotización hasta la entrega final de tu apartamento.</div>
+      <button onclick="abrirModal()" style="width:100%;background:var(--navy);color:var(--gold2);border:none;border-radius:99px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s">Quiero asesoría personalizada →</button>
     </div>
+
     <div style="text-align:center;margin-top:22px"><button onclick="goTo('step1')" style="background:none;border:none;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-decoration:underline">Nueva cotización</button></div>
   </div>
 </div>
@@ -311,7 +319,7 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
 const SHEETS_URL = 'TU_URL_AQUI';
 
 // ════ STATE ════
-const st={area:0,hab:2,ban:1,sala:true,cocina:false,balcon:false,lavadero:false,piso:'p',bano:'c',pint:'c',san:'b',planCont:'pro',extras:{gas:false,closets:false,cieloFalso:false,revoque:false,electrica:false,hidro:false},resultado:0};
+const st={area:0,hab:2,ban:1,sala:true,cocina:false,balcon:false,lavadero:false,piso:'p',bano:'c',pint:'c',san:'b',planCont:'pro',capActivo:'',extras:{gas:false,closets:false,cieloFalso:false,revoque:false,electrica:false,hidro:false},resultado:0};
 
 // ════ PRECIOS (base de datos real) ════
 const P={
@@ -345,7 +353,14 @@ function selM(cat,val,el){st[cat]=val;document.querySelectorAll('[id^="m_'+cat+'
 function togE(cId,key){st.extras[key]=!st.extras[key];document.getElementById(cId).classList.toggle('sel',st.extras[key]);const id='c'+key.charAt(0).toUpperCase()+key.slice(1);const el=document.getElementById(id);if(el)el.textContent=st.extras[key]?'✓':''}
 function selPlan(p){st.planCont=p;document.getElementById('planBasico').classList.toggle('sel',p==='basico');document.getElementById('planPro').classList.toggle('sel',p==='pro')}
 function irS2(){st.area=parseFloat(document.getElementById('areaInp').value)||0;if(st.area<20){alert('Por favor ingresa el área (mínimo 20 m²)');return}goTo('step2')}
-function abrirModal(){document.getElementById('mOverlay').classList.add('open')}
+function abrirModal(){
+  // Restaurar contenido del modal si fue modificado
+  const mc=document.getElementById('mContent');
+  const titulo=st.capActivo?`Contactar para: ${st.capActivo}`:'Asesoría personalizada — Reforma completa';
+  const subtitulo=st.capActivo?'Un contratista especializado en este capítulo te contactará hoy por WhatsApp.':'Déjanos tus datos y un asesor te acompañará en todo el proceso de tu reforma.';
+  mc.innerHTML=`<div class="modal-title">${titulo}</div><div class="modal-sub">${subtitulo}</div><input class="modal-inp" id="mNombre" type="text" placeholder="Tu nombre completo"><input class="modal-inp" id="mWa" type="tel" placeholder="Número de WhatsApp"><input class="modal-inp" id="mDir" type="text" placeholder="Dirección o barrio del apartamento"><input class="modal-inp" id="mEmail" type="email" placeholder="Correo electrónico (opcional)"><button class="modal-btn" onclick="enviarCliente()">Enviar solicitud →</button>`;
+  document.getElementById('mOverlay').classList.add('open');
+}
 function cerrarModal(e){if(e.target===document.getElementById('mOverlay'))document.getElementById('mOverlay').classList.remove('open')}
 
 // ════ CÁLCULO ════
@@ -395,24 +410,42 @@ function calcular(){
   let gran=0;
   const cT=caps.map(cap=>{const t=cap.items.reduce((s,i)=>s+(i.c*i.v),0);gran+=t;return{...cap,t}});
   st.resultado=gran;
-  const imp=gran*.10,total=gran+imp;
   document.getElementById('resTotal').textContent=Math.round(gran).toLocaleString('es-CO');
-  document.getElementById('resImp').textContent=fmt(imp);
-  document.getElementById('resFinal').textContent=fmt(total);
+  document.getElementById('resTotal2').textContent=fmt(gran);
   document.getElementById('resTags').innerHTML=`<div class="res-tag">📐 ${a} m²</div><div class="res-tag">🛏️ ${hab} hab</div><div class="res-tag">🚿 ${ban} baños</div>`+(st.cocina?'<div class="res-tag">🍳 Cocina</div>':'')+(st.balcon?'<div class="res-tag">🌿 Balcón</div>':'');
   const listEl=document.getElementById('capsList');listEl.innerHTML='';
-  cT.forEach((cap,idx)=>{const d=document.createElement('div');d.className='cap-card';d.innerHTML=`<div class="cap-hdr" onclick="tC(${idx})"><div class="cap-name">${cap.n}</div><div class="cap-tot">${fmt(cap.t)}</div><div class="cap-arr" id="ar${idx}">▼</div></div><div class="cap-body" id="cb${idx}">${cap.items.map(it=>`<div class="itm-row"><div class="itm-name">${it.n}</div><div class="itm-right"><div class="itm-calc">${it.c.toFixed(1)} ${it.u} × ${fmt(it.v)}</div><div class="itm-sub">${fmt(it.c*it.v)}</div></div></div>`).join('')}</div>`;listEl.appendChild(d)});
+  cT.forEach((cap,idx)=>{
+    const d=document.createElement('div');
+    d.className='cap-card';
+    d.innerHTML=`
+      <div class="cap-hdr" onclick="tC(${idx})">
+        <div class="cap-name">${cap.n}</div>
+        <div class="cap-tot">${fmt(cap.t)}</div>
+        <div class="cap-arr" id="ar${idx}">▼</div>
+      </div>
+      <div class="cap-body" id="cb${idx}">
+        ${cap.items.map(it=>`<div class="itm-row"><div class="itm-name">${it.n}</div><div class="itm-right"><div class="itm-calc">${it.c.toFixed(1)} ${it.u} × ${fmt(it.v)}</div><div class="itm-sub">${fmt(it.c*it.v)}</div></div></div>`).join('')}
+        <button onclick="abrirModalCap('${cap.n.replace(/'/g,"\\'")}')" style="margin-top:12px;width:100%;background:linear-gradient(135deg,var(--navy),var(--navy3));color:var(--gold2);border:none;border-radius:99px;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
+          📞 Contactar contratista para este capítulo
+        </button>
+      </div>`;
+    listEl.appendChild(d);
+  });
   goTo('step4');
 }
+function abrirModalCap(capNombre){st.capActivo=capNombre;abrirModal()}
 function tC(i){document.getElementById('cb'+i).classList.toggle('open');document.getElementById('ar'+i).classList.toggle('open')}
 
 // ════ ENVIAR A SHEETS — CLIENTE ════
 async function enviarCliente(){
   const n=document.getElementById('mNombre').value.trim(),w=document.getElementById('mWa').value.trim(),d=document.getElementById('mDir').value.trim(),e=document.getElementById('mEmail').value.trim();
   if(!n||!w){alert('Por favor ingresa tu nombre y WhatsApp');return}
-  const datos={tipo:'CLIENTE',fecha:new Date().toLocaleString('es-CO'),nombre:n,whatsapp:w,direccion:d,email:e,area:st.area,habitaciones:st.hab,banos:st.ban,cocina:st.cocina?'Sí':'No',sala:st.sala?'Sí':'No',balcon:st.balcon?'Sí':'No',lavadero:st.lavadero?'Sí':'No',piso:st.piso==='p'?'Porcelanato':'Cerámica',bano:st.bano==='c'?'Cerámica':'Premium',pintura:st.pint==='c'?'Estuco+Pintura':'Solo pintura',sanitarios:st.san==='b'?'Básico':'Premium',extras:Object.keys(st.extras).filter(k=>st.extras[k]).join(', ')||'Ninguno',presupuesto:st.resultado,presupuesto_con_imprevistos:Math.round(st.resultado*1.10)};
+  const capRef=st.capActivo?`Capítulo: ${st.capActivo}`:'Reforma completa';
+  const datos={tipo:'CLIENTE',fecha:new Date().toLocaleString('es-CO'),nombre:n,whatsapp:w,direccion:d,email:e,solicitud:capRef,area:st.area,habitaciones:st.hab,banos:st.ban,cocina:st.cocina?'Sí':'No',sala:st.sala?'Sí':'No',balcon:st.balcon?'Sí':'No',lavadero:st.lavadero?'Sí':'No',piso:st.piso==='p'?'Porcelanato Premium':'Cerámica Básica',bano:st.bano==='c'?'Cerámica Básica':'Porcelanato Premium',pintura:st.pint==='c'?'Estuco+Pintura':'Solo pintura',sanitarios:st.san==='b'?'Básico':'Premium',extras:Object.keys(st.extras).filter(k=>st.extras[k]).join(', ')||'Ninguno',presupuesto:st.resultado};
   try{if(SHEETS_URL!=='TU_URL_AQUI')await fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(datos)})}catch(e){}
-  document.getElementById('mContent').innerHTML=`<div style="text-align:center;padding:16px 0"><div class="success-check">✅</div><div class="modal-title" style="text-align:center">¡Solicitud enviada!</div><div class="modal-sub" style="text-align:center">Un contratista verificado te contactará en menos de 2 horas al WhatsApp <strong>${w}</strong>.</div><div style="background:var(--off2);border-radius:var(--r-sm);padding:14px;margin-top:16px;text-align:left"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px">Tu presupuesto total</div><div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--navy)">${fmt(Math.round(st.resultado*1.10))}</div><div style="font-size:12px;color:var(--text3);margin-top:2px">Incluye materiales, mano de obra e imprevistos</div></div><button onclick="document.getElementById('mOverlay').classList.remove('open')" style="margin-top:18px;width:100%;background:var(--navy);color:var(--gold2);border:none;border-radius:99px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer">Cerrar</button></div>`;
+  const msg=st.capActivo?`Te contactaremos por el capítulo <strong>${st.capActivo}</strong>.`:'Un asesor te contactará para coordinar toda la reforma.';
+  st.capActivo='';
+  document.getElementById('mContent').innerHTML=`<div style="text-align:center;padding:16px 0"><div class="success-check">✅</div><div class="modal-title" style="text-align:center">¡Solicitud enviada!</div><div class="modal-sub" style="text-align:center">${msg} Te escribiremos al WhatsApp <strong>${w}</strong> en menos de 2 horas.</div><div style="background:var(--off2);border-radius:var(--r-sm);padding:14px;margin-top:16px;text-align:left"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px">Presupuesto total</div><div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--navy)">${fmt(st.resultado)}</div><div style="font-size:12px;color:var(--text3);margin-top:2px">Materiales y mano de obra</div></div><button onclick="document.getElementById('mOverlay').classList.remove('open')" style="margin-top:18px;width:100%;background:var(--navy);color:var(--gold2);border:none;border-radius:99px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer">Cerrar</button></div>`;
 }
 
 // ════ ENVIAR A SHEETS — CONTRATISTA ════
