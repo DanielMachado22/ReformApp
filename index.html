@@ -8,11 +8,11 @@
 <style>
 :root{
   --navy:#0B1E3F;--navy2:#132952;--navy3:#1A3A6E;
-  --gold:#C9A84C;--gold2:#E8C96A;--gold3:#F5E0A0;--gold-dark:#A07830;
+  --gold:#C9A84C;--gold2:#E8C96A;--gold-dark:#A07830;
   --white:#FFFFFF;--off:#F7F5F0;--off2:#EEE9DF;
   --text:#0B1E3F;--text2:#4A5568;--text3:#94A3B8;--border:#DDD5C0;
-  --success:#1E6B45;--success-bg:#E6F4ED;
-  --shadow:0 4px 24px rgba(11,30,63,.10);--r:18px;--r-sm:12px;
+  --success:#1E6B45;--success-bg:#E6F4ED;--error:#C0392B;
+  --r:18px;--r-sm:12px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;display:flex;justify-content:center}
@@ -20,30 +20,27 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
 .screen{display:none;flex-direction:column;flex:1;animation:fadeUp .3s ease}
 .screen.active{display:flex}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.sbar{display:none}
 .scroll{flex:1;overflow-y:auto;padding:0 22px 110px;-webkit-overflow-scrolling:touch}.scroll::-webkit-scrollbar{display:none}
-.topnav{display:flex;align-items:center;justify-content:space-between;padding:10px 22px 14px}
+.topnav{display:flex;align-items:center;justify-content:space-between;padding:12px 22px 14px}
 .logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--navy)}.logo span{color:var(--gold-dark)}
-.logo.w{color:#fff}.logo.w span{color:var(--gold2)}
 .back{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--navy)}
 .prog-wrap{padding:0 22px 16px}
 .prog-track{display:flex;gap:5px;margin-bottom:7px}
 .prog-seg{flex:1;height:3px;border-radius:99px;background:var(--off2);transition:background .4s}
 .prog-seg.on{background:var(--gold)}
 .prog-lbl{font-size:12px;color:var(--text3);font-weight:500}.prog-lbl b{color:var(--gold-dark)}
-.h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:var(--navy);line-height:1.2;margin-bottom:6px}.h1 span{color:var(--gold-dark)}
-.sub{font-size:14px;color:var(--text2);margin-bottom:24px;line-height:1.6}
-.divider{height:1px;background:var(--border);margin:20px 0}
+.h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--navy);line-height:1.2;margin-bottom:6px}.h1 span{color:var(--gold-dark)}
+.sub{font-size:14px;color:var(--text2);margin-bottom:22px;line-height:1.6}
+.divider{height:1px;background:var(--border);margin:18px 0}
 .lbl{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:8px}
-.inp{width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:var(--white);outline:none;transition:border .2s;-webkit-appearance:none}
-.inp:focus{border-color:var(--gold)}.inpw{margin-bottom:16px}
-.cnt-row{display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 16px;margin-bottom:12px;transition:border .2s}
-.cnt-row.on{border-color:var(--gold)}
+.inp{width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:var(--white);outline:none;transition:border .2s;-webkit-appearance:none}
+.inp:focus{border-color:var(--gold)}.inpw{margin-bottom:14px}
+.cnt-row{display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 16px;margin-bottom:10px}
 .cnt-lbl{font-size:15px;font-weight:500;color:var(--text)}
 .cnt-ctrl{display:flex;align-items:center;gap:10px}
-.cnt-btn{width:34px;height:34px;border-radius:50%;border:none;background:var(--off2);color:var(--navy);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}.cnt-btn:active{transform:scale(.88)}.cnt-btn.p{background:var(--navy);color:var(--gold2)}
+.cnt-btn{width:34px;height:34px;border-radius:50%;border:none;background:var(--off2);color:var(--navy);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center}.cnt-btn:active{transform:scale(.88)}.cnt-btn.p{background:var(--navy);color:var(--gold2)}
 .cnt-val{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;min-width:28px;text-align:center;color:var(--navy)}
-.tog{display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.tog{display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:13px 16px;margin-bottom:10px;cursor:pointer;transition:all .2s}
 .tog.on{border-color:var(--gold);background:#FFFBF0}
 .tog-name{font-size:15px;font-weight:500;color:var(--text)}.tog-desc{font-size:12px;color:var(--text3);margin-top:2px}
 .sw{width:46px;height:25px;border-radius:99px;background:var(--border);position:relative;transition:background .25s;flex-shrink:0}.sw.on{background:var(--gold)}.sw::after{content:'';position:absolute;width:19px;height:19px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.18)}.sw.on::after{transform:translateX(21px)}
@@ -51,82 +48,74 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
 .opt-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;position:relative;transition:all .2s}.opt.sel .opt-radio{border-color:var(--gold);background:var(--gold)}.opt.sel .opt-radio::after{content:'';position:absolute;width:6px;height:6px;background:#fff;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
 .opt-info{flex:1}.opt-name{font-size:14px;font-weight:600;color:var(--navy)}.opt-desc{font-size:12px;color:var(--text3);margin-top:2px}
 .opt-price{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--gold-dark);text-align:right;white-space:nowrap}.opt-price small{display:block;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--text3);font-weight:400}
-.mat-sec{margin-bottom:22px}.mat-sec-title{font-size:13px;font-weight:700;color:var(--navy3);margin-bottom:10px;display:flex;align-items:center;gap:7px;padding-bottom:7px;border-bottom:1.5px solid var(--off2)}
-.ext-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:16px;margin-bottom:10px;cursor:pointer;display:flex;align-items:flex-start;gap:14px;transition:all .2s}.ext-card.sel{border-color:var(--gold);background:#FFFBF0}
-.ext-icon{font-size:26px;flex-shrink:0;margin-top:2px}.ext-info{flex:1}.ext-name{font-size:14px;font-weight:600;color:var(--navy)}.ext-desc{font-size:12px;color:var(--text3);margin-top:3px;line-height:1.5}.ext-price{font-size:13px;font-weight:700;color:var(--success);margin-top:5px}
-.ext-chk{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;transition:all .2s;margin-top:2px}.ext-card.sel .ext-chk{background:var(--gold);border-color:var(--gold)}
-.res-hero{background:linear-gradient(140deg,var(--navy) 0%,var(--navy3) 100%);border-radius:var(--r);padding:28px 24px;margin-bottom:18px;position:relative;overflow:hidden}
+.mat-sec{margin-bottom:20px}.mat-sec-title{font-size:13px;font-weight:700;color:var(--navy3);margin-bottom:10px;padding-bottom:7px;border-bottom:1.5px solid var(--off2)}
+.ext-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:15px;margin-bottom:10px;cursor:pointer;display:flex;align-items:flex-start;gap:14px;transition:all .2s}.ext-card.sel{border-color:var(--gold);background:#FFFBF0}
+.ext-icon{font-size:24px;flex-shrink:0;margin-top:2px}.ext-info{flex:1}.ext-name{font-size:14px;font-weight:600;color:var(--navy)}.ext-desc{font-size:12px;color:var(--text3);margin-top:3px;line-height:1.5}.ext-price{font-size:13px;font-weight:700;color:var(--success);margin-top:5px}
+.ext-chk{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;margin-top:2px}.ext-card.sel .ext-chk{background:var(--gold);border-color:var(--gold)}
+.res-hero{background:linear-gradient(140deg,var(--navy) 0%,var(--navy3) 100%);border-radius:var(--r);padding:26px 22px;margin-bottom:16px;position:relative;overflow:hidden}
 .res-hero::before{content:'';position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.25),transparent 70%);top:-50px;right:-40px}
-.res-lbl{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.5);margin-bottom:10px}
-.res-amount{font-family:'Playfair Display',serif;font-size:40px;font-weight:800;color:#fff;line-height:1}
-.res-amount sup{font-size:20px;vertical-align:top;margin-top:8px;display:inline-block}
-.res-note{font-size:13px;color:rgba(255,255,255,.5);margin-top:10px}
-.res-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.res-lbl{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.5);margin-bottom:8px}
+.res-amount{font-family:'Playfair Display',serif;font-size:38px;font-weight:800;color:#fff;line-height:1}
+.res-amount sup{font-size:18px;vertical-align:top;margin-top:6px;display:inline-block}
+.res-note{font-size:13px;color:rgba(255,255,255,.5);margin-top:8px}
+.res-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
 .res-tag{background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:500}
-.cap-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px;margin-bottom:8px}
+.cap-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:15px;margin-bottom:8px}
 .cap-hdr{display:flex;align-items:center;cursor:pointer}.cap-name{font-size:14px;font-weight:600;color:var(--navy);flex:1;line-height:1.3}.cap-tot{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--gold-dark);margin-right:8px;white-space:nowrap}.cap-arr{font-size:11px;color:var(--text3);transition:transform .2s}.cap-arr.open{transform:rotate(180deg)}
 .cap-body{display:none;margin-top:12px;border-top:1px solid var(--off2);padding-top:12px}.cap-body.open{display:block}
 .itm-row{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;gap:8px}.itm-name{font-size:12px;color:var(--text2);flex:1;line-height:1.4}.itm-right{text-align:right}.itm-calc{font-size:11px;color:var(--text3)}.itm-sub{font-size:12px;font-weight:600;color:var(--navy)}
-.tot-row{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-radius:var(--r-sm);margin-bottom:8px}
-.tot-row.imp{background:var(--off2);border:1px dashed var(--border)}.tot-row.final{background:var(--navy)}
-.tot-lbl{font-size:14px;font-weight:500}.tot-lbl.w{color:rgba(255,255,255,.7)}.tot-val{font-family:'Playfair Display',serif;font-size:16px;font-weight:700}.tot-val.gold{color:var(--gold-dark)}.tot-val.w{color:var(--gold2)}
-.cont-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:15px;margin-bottom:10px;display:flex;gap:13px;align-items:center}
-.cont-av{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}.cont-info{flex:1}.cont-name{font-size:14px;font-weight:700;color:var(--navy)}.cont-spec{font-size:12px;color:var(--text3);margin-top:2px}.cont-stars{font-size:12px;color:#F59E0B;margin-top:4px}.cont-badge{display:inline-block;background:var(--success-bg);color:var(--success);border-radius:99px;padding:2px 9px;font-size:10px;font-weight:700;margin-top:4px}.cont-plan{font-size:11px;font-weight:700;color:var(--gold-dark);text-align:right}
-.cta{background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);border-radius:var(--r);padding:24px;margin-top:18px;text-align:center;position:relative;overflow:hidden}
-.cta::before{content:'';position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(201,168,76,.12);top:-30px;right:-30px}
-.cta-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:8px}
-.cta-sub{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:20px;line-height:1.6}
-.cta-btn{width:100%;background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);color:var(--navy);border:none;border-radius:99px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:transform .15s}.cta-btn:active{transform:scale(.97)}
+.cont-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;margin-bottom:10px;display:flex;gap:13px;align-items:center}
+.cont-av{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}.cont-info{flex:1}.cont-name{font-size:14px;font-weight:700;color:var(--navy)}.cont-spec{font-size:12px;color:var(--text3);margin-top:2px}.cont-stars{font-size:12px;color:#F59E0B;margin-top:4px}.cont-badge{display:inline-block;background:var(--success-bg);color:var(--success);border-radius:99px;padding:2px 9px;font-size:10px;font-weight:700;margin-top:4px}.cont-plan{font-size:11px;font-weight:700;color:var(--gold-dark);text-align:right}
 .bot{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;padding:14px 22px 28px;background:linear-gradient(to top,var(--off) 55%,transparent);z-index:100}
-.bot-btn{width:100%;border:none;border-radius:99px;padding:17px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,box-shadow .15s}
+.bot-btn{width:100%;border:none;border-radius:99px;padding:17px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s}
 .bot-btn.primary{background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);color:var(--gold2);box-shadow:0 8px 28px rgba(11,30,63,.35)}.bot-btn.primary:active{transform:scale(.98)}
 .bot-btn.gold{background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);color:var(--navy);box-shadow:0 8px 28px rgba(201,168,76,.4)}.bot-btn.gold:active{transform:scale(.98)}
-.plan-card{background:var(--white);border:2px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:12px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.plan-card{background:var(--white);border:2px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:12px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
 .plan-card.sel{border-color:var(--gold);background:#FFFBF0}
-.plan-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:transparent;transition:background .2s}.plan-card.sel::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
-.plan-badge{display:inline-block;background:var(--navy);color:var(--gold2);border-radius:99px;padding:3px 10px;font-size:11px;font-weight:700;margin-bottom:8px}.plan-badge.pop{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy)}
-.plan-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:4px}
-.plan-price{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--gold-dark);margin-bottom:12px}.plan-price small{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;color:var(--text3)}
-.plan-features{list-style:none}.plan-features li{font-size:13px;color:var(--text2);padding:4px 0;display:flex;align-items:center;gap:8px}.plan-features li::before{content:'✓';color:var(--gold-dark);font-weight:700;font-size:12px}
-.plan-radio{position:absolute;top:18px;right:18px;width:22px;height:22px;border-radius:50%;border:2px solid var(--border);transition:all .2s}.plan-card.sel .plan-radio{border-color:var(--gold);background:var(--gold)}.plan-card.sel .plan-radio::after{content:'';display:block;width:8px;height:8px;background:#fff;border-radius:50%;margin:5px auto}
-.tag{display:inline-flex;align-items:center;background:var(--off2);border-radius:99px;padding:5px 12px;font-size:12px;color:var(--text2);font-weight:500;margin-right:6px;margin-bottom:6px;cursor:pointer;border:1px solid transparent;transition:all .2s}.tag:hover{border-color:var(--gold);color:var(--gold-dark)}
-.fsec{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--navy3);margin:20px 0 12px;padding-bottom:8px;border-bottom:1.5px solid var(--off2)}
-.modal-overlay{position:fixed;inset:0;background:rgba(11,30,63,.6);z-index:200;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}.modal-overlay.open{display:flex}
-.modal{width:100%;max-width:430px;background:var(--white);border-radius:28px 28px 0 0;padding:28px 24px 44px;animation:slideUp .3s ease}
+.plan-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:transparent}.plan-card.sel::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.plan-badge{display:inline-block;background:var(--navy);color:var(--gold2);border-radius:99px;padding:3px 10px;font-size:11px;font-weight:700;margin-bottom:6px}.plan-badge.pop{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy)}
+.plan-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.plan-price{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--gold-dark);margin-bottom:10px}.plan-price small{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;color:var(--text3)}
+.plan-features{list-style:none}.plan-features li{font-size:13px;color:var(--text2);padding:3px 0;display:flex;align-items:center;gap:8px}.plan-features li::before{content:'✓';color:var(--gold-dark);font-weight:700;font-size:12px}
+.plan-radio{position:absolute;top:16px;right:16px;width:22px;height:22px;border-radius:50%;border:2px solid var(--border)}.plan-card.sel .plan-radio{border-color:var(--gold);background:var(--gold)}.plan-card.sel .plan-radio::after{content:'';display:block;width:8px;height:8px;background:#fff;border-radius:50%;margin:5px auto}
+.tag{display:inline-flex;background:var(--off2);border-radius:99px;padding:5px 12px;font-size:12px;color:var(--text2);font-weight:500;margin-right:6px;margin-bottom:6px;cursor:pointer;border:1px solid transparent}.tag:hover{border-color:var(--gold);color:var(--gold-dark)}
+.fsec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--navy3);margin:18px 0 10px;padding-bottom:7px;border-bottom:1.5px solid var(--off2)}
+.modal-overlay{position:fixed;inset:0;background:rgba(11,30,63,.6);z-index:200;display:none;align-items:flex-end;justify-content:center}.modal-overlay.open{display:flex}
+.modal{width:100%;max-width:430px;background:var(--white);border-radius:28px 28px 0 0;padding:26px 22px 44px;animation:slideUp .3s ease}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-handle{width:36px;height:4px;background:var(--border);border-radius:99px;margin:0 auto 22px}
-.modal-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--navy);margin-bottom:6px}
-.modal-sub{font-size:14px;color:var(--text2);margin-bottom:20px;line-height:1.5}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:99px;margin:0 auto 20px}
+.modal-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.modal-sub{font-size:14px;color:var(--text2);margin-bottom:18px;line-height:1.5}
 .modal-inp{width:100%;background:var(--off);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);outline:none;margin-bottom:10px}.modal-inp:focus{border-color:var(--gold)}
-.modal-btn{width:100%;background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);color:var(--gold2);border:none;border-radius:99px;padding:16px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;margin-top:6px;transition:opacity .15s}.modal-btn:active{opacity:.85}
-.success-check{width:64px;height:64px;background:var(--success-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px}
+.modal-btn{width:100%;background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);color:var(--gold2);border:none;border-radius:99px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;margin-top:6px}
+.success-check{width:60px;height:60px;background:var(--success-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 14px}
 
-/* ══ SPLASH ══ */
+/* SPLASH */
 #splash{background:linear-gradient(160deg,var(--navy) 0%,var(--navy3) 55%,#1E4D8C 100%);justify-content:space-between;min-height:100vh;position:relative;overflow:hidden}
 .sp-deco1{position:absolute;width:300px;height:300px;border-radius:50%;border:1px solid rgba(201,168,76,.1);top:-90px;right:-90px;pointer-events:none}
 .sp-deco2{position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid rgba(201,168,76,.07);top:-20px;right:-20px;pointer-events:none}
 .sp-deco3{position:absolute;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.12),transparent 70%);bottom:60px;left:-80px;pointer-events:none}
-.sp-top{padding:56px 28px 0;z-index:1;position:relative}
-.sp-chip{display:inline-flex;align-items:center;gap:7px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:99px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--gold2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:24px}
-.sp-title{font-family:'Playfair Display',serif;font-size:52px;font-weight:800;color:#fff;line-height:1;margin-bottom:14px}.sp-title span{color:var(--gold2)}
+.sp-top{padding:52px 26px 0;z-index:1;position:relative}
+.sp-chip{display:inline-flex;align-items:center;gap:7px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:99px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--gold2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:22px}
+.sp-title{font-family:'Playfair Display',serif;font-size:50px;font-weight:800;color:#fff;line-height:1;margin-bottom:12px}.sp-title span{color:var(--gold2)}
 .sp-sub{font-size:15px;color:rgba(255,255,255,.5);line-height:1.7;max-width:300px}
 .sp-bottom{padding:0 22px 44px;z-index:1;position:relative}
-.sp-line{height:1px;background:rgba(255,255,255,.08);margin-bottom:22px}
-.sp-label{font-size:12px;font-weight:600;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;text-align:center}
-.route-btn{width:100%;border:none;border-radius:var(--r);padding:20px 22px;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;transition:transform .15s,box-shadow .15s;margin-bottom:12px}.route-btn:active{transform:scale(.98)}
+.sp-line{height:1px;background:rgba(255,255,255,.08);margin-bottom:20px}
+.sp-label{font-size:12px;font-weight:600;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;text-align:center}
+.route-btn{width:100%;border:none;border-radius:var(--r);padding:18px 20px;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;margin-bottom:10px}
+.route-btn:active{transform:scale(.98)}
 .route-btn.client{background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);color:var(--navy);box-shadow:0 8px 32px rgba(201,168,76,.4)}
 .route-btn.contr{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.13);color:#fff}
-.route-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.route-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 .ri-gold{background:rgba(11,30,63,.18)}.ri-navy{background:rgba(255,255,255,.1)}
-.route-title{font-size:17px;font-weight:700;line-height:1.2}.route-desc{font-size:13px;opacity:.6;margin-top:3px}
+.route-title{font-size:16px;font-weight:700;line-height:1.2}.route-desc{font-size:13px;opacity:.6;margin-top:3px}
 </style>
 </head>
 <body>
 <div class="phone">
 
-<!-- ══════════ SPLASH ══════════ -->
+<!-- SPLASH -->
 <div class="screen active" id="splash">
-  <div class="sbar light"><span>9:41</span><div style="display:flex;gap:5px;align-items:center;font-size:13px"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
   <div class="sp-deco1"></div><div class="sp-deco2"></div><div class="sp-deco3"></div>
   <div class="sp-top">
     <div class="sp-chip">🏗️ Medellín, Colombia</div>
@@ -136,45 +125,38 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
   <div class="sp-bottom">
     <div class="sp-line"></div>
     <div class="sp-label">¿Cómo deseas continuar?</div>
-    <button class="route-btn client" onclick="goTo('step1')">
+    <button class="route-btn client" id="btnCliente">
       <div class="route-icon ri-gold">🏠</div>
       <div><div class="route-title">Quiero cotizar mi reforma</div><div class="route-desc">Presupuesto gratis en 2 minutos</div></div>
     </button>
-    <button class="route-btn contr" onclick="goTo('contSignup')">
+    <button class="route-btn contr" id="btnContratista">
       <div class="route-icon ri-navy">👷</div>
-      <div><div class="route-title">Soy contratista</div><div class="route-desc">Suscríbete y recibe clientes</div></div>
+      <div><div class="route-title">Soy contratista</div><div class="route-desc">Suscríbete gratis y recibe clientes</div></div>
     </button>
   </div>
 </div>
 
-<!-- ══════════ CONTRATISTA SIGNUP ══════════ -->
+<!-- CONTRATISTA SIGNUP -->
 <div class="screen" id="contSignup">
-  <div class="sbar dark"><span>9:41</span><div style="display:flex;gap:5px;font-size:13px"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
-  <div class="topnav"><button class="back" onclick="goTo('splash')">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
+  <div class="topnav"><button class="back" id="btnBackCont">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
   <div class="scroll" id="contScroll">
     <div class="h1">Únete como <span>contratista</span></div>
-    <div class="sub">Recibe clientes que necesitan reformas en tu ciudad. Regístrate gratis por tiempo limitado.</div>
+    <div class="sub">Regístrate gratis por tiempo limitado y empieza a recibir clientes en tu ciudad.</div>
     <div class="fsec">Elige tu plan</div>
 
     <!-- PLAN TACHADO -->
-    <div class="plan-card" id="planBasico" onclick="selPlan('basico')" style="opacity:.55;pointer-events:none;position:relative">
-      <div class="plan-radio"></div>
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;border-radius:var(--r);background:repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(11,30,63,.04) 8px,rgba(11,30,63,.04) 9px);pointer-events:none;z-index:1"></div>
+    <div class="plan-card" style="opacity:.5;pointer-events:none;position:relative">
+      <div style="position:absolute;top:0;left:0;right:0;bottom:0;border-radius:var(--r);z-index:1;background:repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(11,30,63,.04) 8px,rgba(11,30,63,.04) 9px)"></div>
       <div class="plan-badge">Estándar</div>
       <div class="plan-name" style="text-decoration:line-through;color:var(--text3)">Plan Mensual</div>
       <div class="plan-price" style="text-decoration:line-through;color:var(--text3)">$25.000 <small>/ mes</small></div>
-      <ul class="plan-features">
-        <li style="color:var(--text3)">Hasta 10 leads por mes</li>
-        <li style="color:var(--text3)">Perfil con fotos en la app</li>
-        <li style="color:var(--text3)">Notificación por WhatsApp</li>
-      </ul>
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-12deg);background:var(--error,#C0392B);color:#fff;font-size:13px;font-weight:700;padding:6px 18px;border-radius:99px;white-space:nowrap;z-index:2;letter-spacing:.5px">NO DISPONIBLE</div>
+      <ul class="plan-features"><li style="color:var(--text3)">Hasta 10 leads por mes</li><li style="color:var(--text3)">Perfil con fotos</li><li style="color:var(--text3)">Notificación WhatsApp</li></ul>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-12deg);background:var(--error);color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:99px;white-space:nowrap;z-index:2">NO DISPONIBLE</div>
     </div>
 
     <!-- PLAN GRATIS -->
-    <div class="plan-card sel" id="planPro" onclick="selPlan('pro')" style="border-color:var(--gold);position:relative">
-      <div class="plan-radio"></div>
-      <div style="position:absolute;top:-1px;right:16px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-size:11px;font-weight:800;padding:4px 14px;border-radius:0 0 10px 10px;letter-spacing:.5px">⏳ TIEMPO LIMITADO</div>
+    <div class="plan-card sel" style="position:relative">
+      <div style="position:absolute;top:-1px;right:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-size:10px;font-weight:800;padding:4px 12px;border-radius:0 0 10px 10px">⏳ TIEMPO LIMITADO</div>
       <div class="plan-badge pop">🎁 Oferta de lanzamiento</div>
       <div class="plan-name">Suscríbete Gratis</div>
       <div class="plan-price" style="color:var(--success)">$0 <small>/ mes por ahora</small></div>
@@ -183,335 +165,593 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
         <li>Perfil verificado con fotos</li>
         <li>Notificaciones por WhatsApp</li>
         <li>Apareces primero en resultados</li>
-        <li>Dashboard de estadísticas</li>
         <li>Sin tarjeta de crédito requerida</li>
       </ul>
     </div>
+
     <div class="fsec">Tus datos</div>
     <div class="inpw"><label class="lbl">Nombre completo</label><input class="inp" id="cNombre" type="text" placeholder="Ej: Carlos Mejía"></div>
     <div class="inpw"><label class="lbl">WhatsApp</label><input class="inp" id="cWa" type="tel" placeholder="Ej: 3001234567"></div>
     <div class="inpw"><label class="lbl">Ciudad</label><input class="inp" id="cCiudad" type="text" placeholder="Ej: Medellín"></div>
     <div class="inpw"><label class="lbl">Especialidad</label>
-      <select class="inp" id="cEsp"><option value="">Selecciona...</option><option>Remodelaciones completas</option><option>Pisos y enchapes</option><option>Estuco y pintura</option><option>Carpintería</option><option>Plomería e hidrosanitaria</option><option>Red eléctrica</option><option>Red de gas</option><option>Obra civil en general</option></select>
+      <select class="inp" id="cEsp">
+        <option value="">Selecciona...</option>
+        <option>Remodelaciones completas</option><option>Pisos y enchapes</option>
+        <option>Estuco y pintura</option><option>Carpintería</option>
+        <option>Plomería e hidrosanitaria</option><option>Red eléctrica</option>
+        <option>Red de gas</option><option>Obra civil en general</option>
+      </select>
     </div>
     <div class="inpw"><label class="lbl">Años de experiencia</label><input class="inp" id="cExp" type="number" placeholder="Ej: 8" min="0"></div>
     <div class="inpw"><label class="lbl">Correo electrónico</label><input class="inp" id="cEmail" type="email" placeholder="correo@ejemplo.com"></div>
   </div>
-  <div class="bot" id="botCont"><button class="bot-btn gold" onclick="regContratista()">Registrarme y empezar →</button></div>
+  <div class="bot" id="botCont"><button class="bot-btn gold" id="btnRegCont">Registrarme gratis →</button></div>
 </div>
 
-<!-- ══════════ STEP 1 ══════════ -->
+<!-- STEP 1 -->
 <div class="screen" id="step1">
-  <div class="sbar dark"><span>9:41</span><div style="display:flex;gap:5px;font-size:13px"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
-  <div class="topnav"><button class="back" onclick="goTo('splash')">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
+  <div class="topnav"><button class="back" id="btnBackS1">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
   <div class="prog-wrap"><div class="prog-track"><div class="prog-seg on"></div><div class="prog-seg"></div><div class="prog-seg"></div><div class="prog-seg"></div></div><div class="prog-lbl">Paso <b>1 de 4</b> · Datos del apartamento</div></div>
   <div class="scroll">
     <div class="h1">¿Cómo es tu <span>apartamento?</span></div>
-    <div class="sub">Ingresa los datos básicos. El cotizador calcula todo automáticamente.</div>
+    <div class="sub">Ingresa los datos básicos para calcular tu presupuesto.</div>
     <div class="inpw">
       <label class="lbl">📐 Área total (m²)</label>
-      <input class="inp" type="number" id="areaInp" placeholder="Ej: 65" min="20" max="300" oninput="st.area=parseFloat(this.value)||0">
-      <div style="display:flex;flex-wrap:wrap;margin-top:8px"><div class="tag" onclick="setA(45)">45 m²</div><div class="tag" onclick="setA(60)">60 m²</div><div class="tag" onclick="setA(75)">75 m²</div><div class="tag" onclick="setA(90)">90 m²</div><div class="tag" onclick="setA(120)">120 m²</div></div>
+      <input class="inp" type="number" id="areaInp" placeholder="Ej: 65" min="20" max="300">
+      <div style="display:flex;flex-wrap:wrap;margin-top:8px">
+        <span class="tag" data-area="45">45 m²</span><span class="tag" data-area="60">60 m²</span>
+        <span class="tag" data-area="75">75 m²</span><span class="tag" data-area="90">90 m²</span>
+        <span class="tag" data-area="120">120 m²</span>
+      </div>
     </div>
     <div class="divider"></div>
     <label class="lbl">🛏️ Habitaciones y baños</label>
-    <div class="cnt-row" id="rHab"><div><div class="cnt-lbl">Habitaciones</div></div><div class="cnt-ctrl"><button class="cnt-btn" onclick="cnt('hab',-1)">−</button><span class="cnt-val" id="vHab">2</span><button class="cnt-btn p" onclick="cnt('hab',1)">+</button></div></div>
-    <div class="cnt-row" id="rBan"><div><div class="cnt-lbl">Baños completos</div></div><div class="cnt-ctrl"><button class="cnt-btn" onclick="cnt('ban',-1)">−</button><span class="cnt-val" id="vBan">1</span><button class="cnt-btn p" onclick="cnt('ban',1)">+</button></div></div>
+    <div class="cnt-row"><div><div class="cnt-lbl">Habitaciones</div></div><div class="cnt-ctrl"><button class="cnt-btn" id="habMinus">−</button><span class="cnt-val" id="vHab">2</span><button class="cnt-btn p" id="habPlus">+</button></div></div>
+    <div class="cnt-row"><div><div class="cnt-lbl">Baños completos</div></div><div class="cnt-ctrl"><button class="cnt-btn" id="banMinus">−</button><span class="cnt-val" id="vBan">1</span><button class="cnt-btn p" id="banPlus">+</button></div></div>
     <div class="divider"></div>
     <label class="lbl">📦 Espacios del apartamento</label>
-    <div class="tog on" id="tSala" onclick="tog('sala')"><div><div class="tog-name">🛋️ Sala - Comedor</div><div class="tog-desc">Pisos y pintura incluidos</div></div><div class="sw on" id="sSala"></div></div>
-    <div class="tog" id="tCocina" onclick="tog('cocina')"><div><div class="tog-name">🍳 Cocina</div><div class="tog-desc">Mueble + salpicadero</div></div><div class="sw" id="sCocina"></div></div>
-    <div class="tog" id="tBalcon" onclick="tog('balcon')"><div><div class="tog-name">🌿 Balcón / terraza</div><div class="tog-desc">Piso Gress antideslizante</div></div><div class="sw" id="sBalcon"></div></div>
-    <div class="tog" id="tLavadero" onclick="tog('lavadero')"><div><div class="tog-name">🧺 Lavadero</div><div class="tog-desc">Mueble lavadero incluido</div></div><div class="sw" id="sLavadero"></div></div>
+    <div class="tog on" id="tSala"><div><div class="tog-name">🛋️ Sala - Comedor</div><div class="tog-desc">Pisos y pintura incluidos</div></div><div class="sw on" id="sSala"></div></div>
+    <div class="tog" id="tCocina"><div><div class="tog-name">🍳 Cocina</div><div class="tog-desc">Mueble + salpicadero</div></div><div class="sw" id="sCocina"></div></div>
+    <div class="tog" id="tBalcon"><div><div class="tog-name">🌿 Balcón / terraza</div><div class="tog-desc">Piso Gress antideslizante</div></div><div class="sw" id="sBalcon"></div></div>
+    <div class="tog" id="tLavadero"><div><div class="tog-name">🧺 Lavadero</div><div class="tog-desc">Mueble lavadero incluido</div></div><div class="sw" id="sLavadero"></div></div>
   </div>
-  <div class="bot"><button class="bot-btn primary" onclick="irS2()">Elegir materiales →</button></div>
+  <div class="bot"><button class="bot-btn primary" id="btnS1Next">Elegir materiales →</button></div>
 </div>
 
-<!-- ══════════ STEP 2 ══════════ -->
+<!-- STEP 2 -->
 <div class="screen" id="step2">
-  <div class="sbar dark"><span>9:41</span><div style="display:flex;gap:5px;font-size:13px"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
-  <div class="topnav"><button class="back" onclick="goTo('step1')">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
+  <div class="topnav"><button class="back" id="btnBackS2">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
   <div class="prog-wrap"><div class="prog-track"><div class="prog-seg on"></div><div class="prog-seg on"></div><div class="prog-seg"></div><div class="prog-seg"></div></div><div class="prog-lbl">Paso <b>2 de 4</b> · Materiales</div></div>
   <div class="scroll">
     <div class="h1">Selecciona tus <span>materiales</span></div>
-    <div class="sub">Elige una opción por categoría. Los precios incluyen materiales e instalación.</div>
-    <div class="mat-sec"><div class="mat-sec-title">🏠 Pisos — Área principal</div>
-      <div class="opt sel" id="m_piso_p" onclick="selM('piso','p',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Porcelanato Premium</div><div class="opt-desc">Alta resistencia, acabado brillante, larga duración</div></div><div class="opt-price">$78.274/m²<small>mat + inst.</small></div></div>
-      <div class="opt" id="m_piso_c" onclick="selM('piso','c',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cerámica Básica</div><div class="opt-desc">Excelente relación calidad / precio</div></div><div class="opt-price">$65.518/m²<small>mat + inst.</small></div></div>
+    <div class="sub">Elige una opción por categoría.</div>
+
+    <div class="mat-sec">
+      <div class="mat-sec-title">🏠 Pisos — Área principal</div>
+      <div class="opt sel" data-cat="piso" data-val="p"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Porcelanato Premium</div><div class="opt-desc">Alta resistencia, acabado brillante</div></div><div class="opt-price">$78.274/m²<small>mat + inst.</small></div></div>
+      <div class="opt" data-cat="piso" data-val="c"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cerámica Básica</div><div class="opt-desc">Excelente relación calidad / precio</div></div><div class="opt-price">$65.518/m²<small>mat + inst.</small></div></div>
     </div>
-    <div class="mat-sec"><div class="mat-sec-title">🚿 Enchape de baños</div>
-      <div class="opt sel" id="m_bano_c" onclick="selM('bano','c',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cerámica Básica</div><div class="opt-desc">Material nacional, durabilidad comprobada</div></div><div class="opt-price">$65.518/m²<small>mat + inst.</small></div></div>
-      <div class="opt" id="m_bano_p" onclick="selM('bano','p',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Porcelanato Premium</div><div class="opt-desc">Mayor resistencia, diseño de alto impacto</div></div><div class="opt-price">$95.518/m²<small>mat + inst.</small></div></div>
+
+    <div class="mat-sec">
+      <div class="mat-sec-title">🚿 Enchape de baños</div>
+      <div class="opt sel" data-cat="bano" data-val="c"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cerámica Básica</div><div class="opt-desc">Material nacional, durabilidad comprobada</div></div><div class="opt-price">$65.518/m²<small>mat + inst.</small></div></div>
+      <div class="opt" data-cat="bano" data-val="p"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Porcelanato Premium</div><div class="opt-desc">Mayor resistencia, diseño de alto impacto</div></div><div class="opt-price">$95.518/m²<small>mat + inst.</small></div></div>
     </div>
-    <div class="mat-sec"><div class="mat-sec-title">🎨 Estuco y pintura</div>
-      <div class="opt sel" id="m_pint_c" onclick="selM('pint','c',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Estuco + Pintura 3 manos</div><div class="opt-desc">Fondeo + acabado completo, liso perfecto</div></div><div class="opt-price">$43.537/m²<small>todo costo</small></div></div>
-      <div class="opt" id="m_pint_s" onclick="selM('pint','s',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Solo pintura</div><div class="opt-desc">Fondeo + 3 manos sin estuco</div></div><div class="opt-price">$22.900/m²<small>todo costo</small></div></div>
+
+    <div class="mat-sec">
+      <div class="mat-sec-title">🎨 Estuco y pintura</div>
+      <div class="opt sel" data-cat="pint" data-val="c"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Estuco + Pintura 3 manos</div><div class="opt-desc">Fondeo + acabado completo</div></div><div class="opt-price">$43.537/m²<small>todo costo</small></div></div>
+      <div class="opt" data-cat="pint" data-val="s"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Solo pintura</div><div class="opt-desc">Fondeo + 3 manos sin estuco</div></div><div class="opt-price">$22.900/m²<small>todo costo</small></div></div>
     </div>
-    <div class="mat-sec"><div class="mat-sec-title">🪠 Equipos sanitarios (por baño)</div>
-      <div class="opt sel" id="m_san_b" onclick="selM('san','b',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Básico — Aquaplus</div><div class="opt-desc">Sanitario + lavamanos + griferías + instalación</div></div><div class="opt-price">$960.000<small>por baño</small></div></div>
-      <div class="opt" id="m_san_p" onclick="selM('san','p',this)"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Premium — con cabina</div><div class="opt-desc">Incluye cabina de ducha por baño</div></div><div class="opt-price">$1.710.000<small>por baño</small></div></div>
+
+    <div class="mat-sec">
+      <div class="mat-sec-title">🪠 Equipos sanitarios (por baño)</div>
+      <div class="opt sel" data-cat="san" data-val="b"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Básico — Aquaplus</div><div class="opt-desc">Sanitario + lavamanos + griferías + instalación</div></div><div class="opt-price">$960.000<small>por baño</small></div></div>
+      <div class="opt" data-cat="san" data-val="p"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Premium — con cabina</div><div class="opt-desc">Incluye cabina de ducha por baño</div></div><div class="opt-price">$1.710.000<small>por baño</small></div></div>
+    </div>
+
+    <div class="mat-sec" id="secCocina" style="display:none">
+      <div class="mat-sec-title">🍳 Tipo de cocina</div>
+      <div class="opt sel" data-cat="coc" data-val="b"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cocina Básica</div><div class="opt-desc">Mesón en acero inoxidable, módulos estándar</div></div><div class="opt-price">$2.000.000<small>suministro</small></div></div>
+      <div class="opt" data-cat="coc" data-val="m"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cocina Media con Barra</div><div class="opt-desc">Incluye barra de desayuno, mayor capacidad</div></div><div class="opt-price">$3.200.000<small>suministro</small></div></div>
+      <div class="opt" data-cat="coc" data-val="l"><div class="opt-radio"></div><div class="opt-info"><div class="opt-name">Cocina Lujo 2m</div><div class="opt-desc">Mesón en quartzstone, acabados de alta gama</div></div><div class="opt-price">$5.600.000<small>suministro</small></div></div>
     </div>
   </div>
-  <div class="bot"><button class="bot-btn primary" onclick="goTo('step3')">Ver adicionales →</button></div>
+  <div class="bot"><button class="bot-btn primary" id="btnS2Next">Ver adicionales →</button></div>
 </div>
 
-<!-- ══════════ STEP 3 ══════════ -->
+<!-- STEP 3 -->
 <div class="screen" id="step3">
-  <div class="sbar dark"><span>9:41</span><div style="display:flex;gap:5px;font-size:13px"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
-  <div class="topnav"><button class="back" onclick="goTo('step2')">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
+  <div class="topnav"><button class="back" id="btnBackS3">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
   <div class="prog-wrap"><div class="prog-track"><div class="prog-seg on"></div><div class="prog-seg on"></div><div class="prog-seg on"></div><div class="prog-seg"></div></div><div class="prog-lbl">Paso <b>3 de 4</b> · Adicionales</div></div>
   <div class="scroll">
     <div class="h1">¿Algo <span>adicional?</span></div>
-    <div class="sub">Selecciona los elementos extra que necesitas en tu reforma.</div>
-    <div class="ext-card" id="eGas" onclick="togE('eGas','gas')"><div class="ext-icon">🔥</div><div class="ext-info"><div class="ext-name">Red de gas + calentador</div><div class="ext-desc">Instalación y legalización + calentador de paso</div><div class="ext-price">$2.380.000</div></div><div class="ext-chk" id="cGas"></div></div>
-    <div class="ext-card" id="eClosets" onclick="togE('eClosets','closets')"><div class="ext-icon">🚪</div><div class="ext-info"><div class="ext-name">Closets y puertas en madera</div><div class="ext-desc">Puertas habitaciones + closets principal y secundarios</div><div class="ext-price">$4.389.551 +</div></div><div class="ext-chk" id="cClosets"></div></div>
-    <div class="ext-card" id="eCielo" onclick="togE('eCielo','cieloFalso')"><div class="ext-icon">⬜</div><div class="ext-info"><div class="ext-name">Cielo falso en baños</div><div class="ext-desc">Superboard 6mm — acabado limpio y moderno</div><div class="ext-price">$122.000 / m²</div></div><div class="ext-chk" id="cCieloFalso"></div></div>
-    <div class="ext-card" id="eRevoque" onclick="togE('eRevoque','revoque')"><div class="ext-icon">🧱</div><div class="ext-info"><div class="ext-name">Revoque de paredes</div><div class="ext-desc">Mano de obra + arena + cemento + transporte</div><div class="ext-price">Según m²</div></div><div class="ext-chk" id="cRevoque"></div></div>
-    <div class="ext-card" id="eElec" onclick="togE('eElec','electrica')"><div class="ext-icon">⚡</div><div class="ext-info"><div class="ext-name">Red eléctrica</div><div class="ext-desc">Colocación de aparatos eléctricos por punto</div><div class="ext-price">Según puntos</div></div><div class="ext-chk" id="cElectrica"></div></div>
-    <div class="ext-card" id="eHidro" onclick="togE('eHidro','hidro')"><div class="ext-icon">💧</div><div class="ext-info"><div class="ext-name">Red hidrosanitaria</div><div class="ext-desc">Tubería sanitaria y red de abasto, oficial plomero</div><div class="ext-price">Según días de obra</div></div><div class="ext-chk" id="cHidro"></div></div>
+    <div class="sub">Selecciona los elementos extra que necesitas.</div>
+    <div class="ext-card" data-extra="gas"><div class="ext-icon">🔥</div><div class="ext-info"><div class="ext-name">Red de gas + calentador</div><div class="ext-desc">Instalación, legalización + calentador de paso</div><div class="ext-price">$2.380.000</div></div><div class="ext-chk" id="chkGas"></div></div>
+    <div class="ext-card" data-extra="closets"><div class="ext-icon">🚪</div><div class="ext-info"><div class="ext-name">Closets y puertas en madera</div><div class="ext-desc">Puertas habitaciones + baños + closets</div><div class="ext-price">$4.389.551 +</div></div><div class="ext-chk" id="chkClosets"></div></div>
+    <div class="ext-card" data-extra="cieloFalso"><div class="ext-icon">⬜</div><div class="ext-info"><div class="ext-name">Cielo falso en baños</div><div class="ext-desc">Superboard 6mm — acabado limpio y moderno</div><div class="ext-price">$122.000 / m²</div></div><div class="ext-chk" id="chkCieloFalso"></div></div>
+    <div class="ext-card" data-extra="revoque"><div class="ext-icon">🧱</div><div class="ext-info"><div class="ext-name">Revoque de paredes</div><div class="ext-desc">Mano de obra + arena (0.03 m³/m²) + cemento + transporte</div><div class="ext-price">Según m²</div></div><div class="ext-chk" id="chkRevoque"></div></div>
+    <div class="ext-card" data-extra="electrica"><div class="ext-icon">⚡</div><div class="ext-info"><div class="ext-name">Red eléctrica</div><div class="ext-desc">Colocación de aparatos eléctricos por punto</div><div class="ext-price">Según puntos</div></div><div class="ext-chk" id="chkElectrica"></div></div>
+    <div class="ext-card" data-extra="hidro"><div class="ext-icon">💧</div><div class="ext-info"><div class="ext-name">Red hidrosanitaria</div><div class="ext-desc">Tubería sanitaria y red de abasto, oficial plomero</div><div class="ext-price">Según días de obra</div></div><div class="ext-chk" id="chkHidro"></div></div>
   </div>
-  <div class="bot"><button class="bot-btn gold" onclick="calcular()">Ver mi presupuesto 🎉</button></div>
+  <div class="bot"><button class="bot-btn gold" id="btnCalc">Ver mi presupuesto 🎉</button></div>
 </div>
 
-<!-- ══════════ STEP 4 — RESULTADO ══════════ -->
+<!-- STEP 4 RESULTADO -->
 <div class="screen" id="step4">
-  <div class="sbar dark"><span>9:41</span><div style="display:flex;gap:5px;font-size:13px"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
-  <div class="topnav"><button class="back" onclick="goTo('step3')">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
+  <div class="topnav"><button class="back" id="btnBackS4">←</button><div class="logo">Reform<span>App</span></div><div style="width:38px"></div></div>
   <div class="prog-wrap"><div class="prog-track"><div class="prog-seg on"></div><div class="prog-seg on"></div><div class="prog-seg on"></div><div class="prog-seg on"></div></div><div class="prog-lbl">Paso <b>4 de 4</b> · Tu presupuesto listo ✅</div></div>
   <div class="scroll">
     <div class="res-hero">
       <div class="res-lbl">Presupuesto estimado</div>
       <div class="res-amount"><sup>$</sup><span id="resTotal">0</span></div>
-      <div class="res-note">Materiales + mano de obra (sin imprevistos)</div>
+      <div class="res-note">Materiales + mano de obra</div>
       <div class="res-tags" id="resTags"></div>
     </div>
-    <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);margin-bottom:12px">Desglose detallado</div>
+    <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:12px">Desglose detallado</div>
     <div id="capsList"></div>
-
     <div style="background:var(--navy);border-radius:var(--r-sm);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-      <div class="tot-lbl w" style="font-weight:700">TOTAL REFORMA</div>
-      <div class="tot-val w" id="resTotal2">$0</div>
+      <div style="font-size:14px;font-weight:700;color:rgba(255,255,255,.7)">TOTAL REFORMA</div>
+      <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold2)" id="resTotal2">$0</div>
     </div>
-
     <div class="divider"></div>
-    <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);margin-bottom:4px">Contratistas disponibles</div>
+    <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px">Contratistas disponibles</div>
     <div style="font-size:13px;color:var(--text3);margin-bottom:14px">Medellín · Verificados por ReformApp</div>
-    <div class="cont-card"><div class="cont-av" style="background:#EEF2FF">🦺</div><div class="cont-info"><div class="cont-name">Carlos Mejía Obras</div><div class="cont-spec">Remodelaciones VIS y No-VIS · 8 años exp.</div><div class="cont-stars">★★★★★ <span style="color:var(--text3)">4.9 (47)</span></div><span class="cont-badge">✓ Verificado</span></div><div class="cont-plan">Plan Pro<br><span style="color:var(--text3);font-weight:400">Responde &lt;2h</span></div></div>
-    <div class="cont-card"><div class="cont-av" style="background:var(--success-bg)">🔨</div><div class="cont-info"><div class="cont-name">Reformas Antioquia SAS</div><div class="cont-spec">Acabados completos · 12 años exp.</div><div class="cont-stars">★★★★☆ <span style="color:var(--text3)">4.7 (92)</span></div><span class="cont-badge">✓ Verificado</span></div><div class="cont-plan">Plan Pro<br><span style="color:var(--text3);font-weight:400">Responde &lt;4h</span></div></div>
-
-    <!-- CTA ASESORÍA PERSONALIZADA -->
-    <div style="background:linear-gradient(135deg,var(--gold-dark) 0%,var(--gold) 100%);border-radius:var(--r);padding:26px;margin-top:18px;position:relative;overflow:hidden">
-      <div style="position:absolute;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.12);top:-20px;right:-20px"></div>
-      <div style="font-size:20px;margin-bottom:10px">🏗️</div>
-      <div style="font-family:'Playfair Display',serif;font-size:19px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.2">¿Quieres contratar toda la reforma?</div>
-      <div style="font-size:13px;color:var(--navy);opacity:.75;margin-bottom:20px;line-height:1.6">Contáctanos para una asesoría personalizada. Te acompañamos desde la cotización hasta la entrega final de tu apartamento.</div>
-      <button onclick="abrirModal()" style="width:100%;background:var(--navy);color:var(--gold2);border:none;border-radius:99px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s">Quiero asesoría personalizada →</button>
+    <div class="cont-card"><div class="cont-av" style="background:#EEF2FF">🦺</div><div class="cont-info"><div class="cont-name">Carlos Mejía Obras</div><div class="cont-spec">Remodelaciones VIS y No-VIS · 8 años</div><div class="cont-stars">★★★★★ <span style="color:var(--text3)">4.9 (47)</span></div><span class="cont-badge">✓ Verificado</span></div><div class="cont-plan">Plan Pro<br><span style="color:var(--text3);font-weight:400">Resp. &lt;2h</span></div></div>
+    <div class="cont-card"><div class="cont-av" style="background:var(--success-bg)">🔨</div><div class="cont-info"><div class="cont-name">Reformas Antioquia SAS</div><div class="cont-spec">Acabados completos · 12 años</div><div class="cont-stars">★★★★☆ <span style="color:var(--text3)">4.7 (92)</span></div><span class="cont-badge">✓ Verificado</span></div><div class="cont-plan">Plan Pro<br><span style="color:var(--text3);font-weight:400">Resp. &lt;4h</span></div></div>
+    <div style="background:linear-gradient(135deg,var(--gold-dark) 0%,var(--gold) 100%);border-radius:var(--r);padding:24px;margin-top:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.12);top:-20px;right:-20px"></div>
+      <div style="font-size:18px;margin-bottom:8px">🏗️</div>
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.2">¿Quieres contratar toda la reforma?</div>
+      <div style="font-size:13px;color:var(--navy);opacity:.75;margin-bottom:18px;line-height:1.6">Contáctanos para una asesoría personalizada. Te acompañamos desde la cotización hasta la entrega final.</div>
+      <button id="btnAsesoria" style="width:100%;background:var(--navy);color:var(--gold2);border:none;border-radius:99px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer">Quiero asesoría personalizada →</button>
     </div>
-
-    <div style="text-align:center;margin-top:22px"><button onclick="goTo('step1')" style="background:none;border:none;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-decoration:underline">Nueva cotización</button></div>
+    <div style="text-align:center;margin-top:20px"><button id="btnNuevaCot" style="background:none;border:none;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-decoration:underline">Nueva cotización</button></div>
   </div>
 </div>
 
-<!-- ══════════ MODAL CONTACTO ══════════ -->
-<div class="modal-overlay" id="mOverlay" onclick="cerrarModal(event)">
+<!-- MODAL -->
+<div class="modal-overlay" id="mOverlay">
   <div class="modal">
     <div class="modal-handle"></div>
-    <div id="mContent">
-      <div class="modal-title">Solicitar visita técnica</div>
-      <div class="modal-sub">Déjanos tus datos. Un contratista verificado te contacta hoy. Es completamente gratuito.</div>
-      <input class="modal-inp" id="mNombre" type="text" placeholder="Tu nombre completo">
-      <input class="modal-inp" id="mWa" type="tel" placeholder="Número de WhatsApp">
-      <input class="modal-inp" id="mDir" type="text" placeholder="Dirección o barrio del apartamento">
-      <input class="modal-inp" id="mEmail" type="email" placeholder="Correo electrónico (opcional)">
-      <button class="modal-btn" onclick="enviarCliente()">Enviar solicitud →</button>
-    </div>
+    <div id="mContent"></div>
   </div>
 </div>
 
+</div><!-- /phone -->
+
 <script>
-// ════════════════════════════════════════════
-// GOOGLE SHEETS URL
-// Reemplaza con tu URL cuando la configures
-// (instrucciones al final del archivo)
-// ════════════════════════════════════════════
-const SHEETS_URL = 'TU_URL_AQUI';
+// ══════════════════════════════════════
+// GOOGLE SHEETS — pega tu URL aquí
+// ══════════════════════════════════════
+const SHEETS_URL = https://script.google.com/macros/s/AKfycbwogxZErlebjmdP34qR65hPHiCNZsGSJ9SpQ0PHLr7CBqaip5TbLv3OZBnnfdOAi4Cx/exec;
 
-// ════ STATE ════
-const st={area:0,hab:2,ban:1,sala:true,cocina:false,balcon:false,lavadero:false,piso:'p',bano:'c',pint:'c',san:'b',planCont:'pro',capActivo:'',extras:{gas:false,closets:false,cieloFalso:false,revoque:false,electrica:false,hidro:false},resultado:0};
-
-// ════ PRECIOS (base de datos real) ════
-const P={
-  porc_mat:50256,porc_inst:28018,porc_peg:95000,
-  mort_inst:17000,mort_mat:550000,
-  cer_mat:37500,cer_inst:28018,
-  gress_mat:50256,gress_inst:28018,
-  zoc_mat:66300,zoc_inst:12000,
-  tr_enc:250000,tr_peg:80000,
-  enc_c_mat:37500,enc_c_inst:28018,
-  enc_p_mat:67500,enc_p_inst:28018,
-  salp_mat:66300,salp_inst:28018,
-  rev_inst:16686,rev_are:280000,rev_cem:32300,rev_agu:7456,rev_tr:140000,
-  tub_san:109900,plomero:153000,tub_ab:109900,
-  ap_elec:7500,
-  cal:780000,tr_cal:150000,gas_ins:1450000,
-  cielo:122000,cabina:750000,
-  p_hab:778551,p_ban:586000,cl_p:1775000,cl_s:1250000,lavad:480000,
-  sanitario:280000,lavamanos:140000,tr_san:240000,grif_l:100000,grif_d:100000,inst_san:100000,
-  mu_mat:1500000,mu_inst:500000,mu_tr:200000,
-  estuco:20837,pint_f:7800,pint_a:15100,pint_tr:150000,
-  aseo:145000,escombros:550000
+// ══════ STATE ══════
+const st = {
+  area:0, hab:2, ban:1,
+  sala:true, cocina:false, balcon:false, lavadero:false,
+  piso:'p', bano:'c', pint:'c', san:'b', coc:'b',
+  extras:{gas:false,closets:false,cieloFalso:false,revoque:false,electrica:false,hidro:false},
+  capActivo:'', resultado:0
 };
 
-function fmt(n){return '$'+Math.round(n).toLocaleString('es-CO')}
-function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-function setA(v){document.getElementById('areaInp').value=v;st.area=v}
-function cnt(k,d){const mn={hab:1,ban:1},mx={hab:5,ban:4};st[k]=Math.max(mn[k],Math.min(mx[k],st[k]+d));document.getElementById('v'+k.charAt(0).toUpperCase()+k.slice(1)).textContent=st[k]}
-function tog(k){st[k]=!st[k];const T=k.charAt(0).toUpperCase()+k.slice(1);document.getElementById('t'+T).classList.toggle('on',st[k]);document.getElementById('s'+T).classList.toggle('on',st[k])}
-function selM(cat,val,el){st[cat]=val;document.querySelectorAll('[id^="m_'+cat+'_"]').forEach(c=>c.classList.remove('sel'));el.classList.add('sel')}
-function togE(cId,key){st.extras[key]=!st.extras[key];document.getElementById(cId).classList.toggle('sel',st.extras[key]);const id='c'+key.charAt(0).toUpperCase()+key.slice(1);const el=document.getElementById(id);if(el)el.textContent=st.extras[key]?'✓':''}
-function selPlan(p){st.planCont=p;document.getElementById('planBasico').classList.toggle('sel',p==='basico');document.getElementById('planPro').classList.toggle('sel',p==='pro')}
-function irS2(){st.area=parseFloat(document.getElementById('areaInp').value)||0;if(st.area<20){alert('Por favor ingresa el área (mínimo 20 m²)');return}goTo('step2')}
-function abrirModal(){
-  // Restaurar contenido del modal si fue modificado
-  const mc=document.getElementById('mContent');
-  const titulo=st.capActivo?`Contactar para: ${st.capActivo}`:'Asesoría personalizada — Reforma completa';
-  const subtitulo=st.capActivo?'Un contratista especializado en este capítulo te contactará hoy por WhatsApp.':'Déjanos tus datos y un asesor te acompañará en todo el proceso de tu reforma.';
-  mc.innerHTML=`<div class="modal-title">${titulo}</div><div class="modal-sub">${subtitulo}</div><input class="modal-inp" id="mNombre" type="text" placeholder="Tu nombre completo"><input class="modal-inp" id="mWa" type="tel" placeholder="Número de WhatsApp"><input class="modal-inp" id="mDir" type="text" placeholder="Dirección o barrio del apartamento"><input class="modal-inp" id="mEmail" type="email" placeholder="Correo electrónico (opcional)"><button class="modal-btn" onclick="enviarCliente()">Enviar solicitud →</button>`;
-  document.getElementById('mOverlay').classList.add('open');
+// ══════ PRECIOS ══════
+const P = {
+  porc_mat:50256, porc_inst:28018, porc_peg:95000,
+  mort_inst:17000, mort_mat:550000,
+  cer_mat:37500, cer_inst:28018,
+  gress_mat:50256, gress_inst:28018,
+  zoc_mat:66300, zoc_inst:12000,
+  tr_enc:250000, tr_peg:80000,
+  enc_c_mat:37500, enc_c_inst:28018,
+  enc_p_mat:67500, enc_p_inst:28018,
+  salp_mat:66300, salp_inst:28018,
+  rev_inst:16686, rev_are:280000, rev_cem:32300, rev_tr:140000,
+  tub_san:109900, plomero:153000, tub_ab:109900,
+  ap_elec:7500,
+  cal:780000, tr_cal:150000, gas_ins:1450000,
+  cielo:122000, cabina:750000,
+  p_hab:778551, p_ban:586000, cl_p:1775000, cl_s:1250000, lavad:480000,
+  mu_inst:500000, mu_tr:200000,
+  coc_b:2000000, coc_m:3200000, coc_l:5600000,
+  sanitario:280000, lavamanos:140000, tr_san:240000,
+  grif_l:100000, grif_d:100000, inst_san:100000,
+  estuco:20837, pint_f:7800, pint_a:15100, pint_tr:150000,
+  aseo:145000, escombros:550000
+};
+
+// ══════ HELPERS ══════
+function fmt(n){ return '$' + Math.round(n).toLocaleString('es-CO'); }
+
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
 }
-function cerrarModal(e){if(e.target===document.getElementById('mOverlay'))document.getElementById('mOverlay').classList.remove('open')}
 
-// ════ CÁLCULO ════
+function abrirModal(){
+  const titulo = st.capActivo ? 'Contactar para: ' + st.capActivo : 'Asesoría personalizada';
+  const sub = st.capActivo
+    ? 'Un contratista especializado te contactará hoy por WhatsApp.'
+    : 'Déjanos tus datos y un asesor te acompañará en todo el proceso.';
+  document.getElementById('mContent').innerHTML =
+    '<div class="modal-title">'+titulo+'</div>' +
+    '<div class="modal-sub">'+sub+'</div>' +
+    '<input class="modal-inp" id="mNombre" type="text" placeholder="Tu nombre completo">' +
+    '<input class="modal-inp" id="mWa" type="tel" placeholder="Número de WhatsApp">' +
+    '<input class="modal-inp" id="mDir" type="text" placeholder="Dirección o barrio">' +
+    '<input class="modal-inp" id="mEmail" type="email" placeholder="Correo (opcional)">' +
+    '<button class="modal-btn" id="btnEnviar">Enviar solicitud →</button>';
+  document.getElementById('mOverlay').classList.add('open');
+  document.getElementById('btnEnviar').addEventListener('click', enviarCliente);
+}
+
+// ══════ INIT — todo aquí, sin onclick en HTML ══════
+window.addEventListener('DOMContentLoaded', function(){
+
+  // Splash
+  document.getElementById('btnCliente').addEventListener('click', function(){ goTo('step1'); });
+  document.getElementById('btnContratista').addEventListener('click', function(){ goTo('contSignup'); });
+
+  // Contratista
+  document.getElementById('btnBackCont').addEventListener('click', function(){ goTo('splash'); });
+  document.getElementById('btnRegCont').addEventListener('click', regContratista);
+
+  // Step 1
+  document.getElementById('btnBackS1').addEventListener('click', function(){ goTo('splash'); });
+  document.getElementById('btnS1Next').addEventListener('click', irS2);
+  document.getElementById('habMinus').addEventListener('click', function(){ cambiarCnt('hab',-1); });
+  document.getElementById('habPlus').addEventListener('click', function(){ cambiarCnt('hab',1); });
+  document.getElementById('banMinus').addEventListener('click', function(){ cambiarCnt('ban',-1); });
+  document.getElementById('banPlus').addEventListener('click', function(){ cambiarCnt('ban',1); });
+
+  // Tags de área
+  document.querySelectorAll('.tag[data-area]').forEach(function(tag){
+    tag.addEventListener('click', function(){
+      var v = parseInt(this.dataset.area);
+      document.getElementById('areaInp').value = v;
+      st.area = v;
+    });
+  });
+
+  // Toggles espacios
+  ['Sala','Cocina','Balcon','Lavadero'].forEach(function(T){
+    document.getElementById('t'+T).addEventListener('click', function(){ togEspacio(T.toLowerCase()); });
+  });
+
+  // Step 2
+  document.getElementById('btnBackS2').addEventListener('click', function(){ goTo('step1'); });
+  document.getElementById('btnS2Next').addEventListener('click', function(){ goTo('step3'); });
+
+  // Opciones de material
+  document.querySelectorAll('.opt[data-cat]').forEach(function(opt){
+    opt.addEventListener('click', function(){
+      var cat = this.dataset.cat;
+      var val = this.dataset.val;
+      st[cat] = val;
+      document.querySelectorAll('.opt[data-cat="'+cat+'"]').forEach(function(o){ o.classList.remove('sel'); });
+      this.classList.add('sel');
+    });
+  });
+
+  // Step 3
+  document.getElementById('btnBackS3').addEventListener('click', function(){ goTo('step2'); });
+  document.getElementById('btnCalc').addEventListener('click', calcular);
+
+  // Extras
+  document.querySelectorAll('.ext-card[data-extra]').forEach(function(card){
+    card.addEventListener('click', function(){
+      var key = this.dataset.extra;
+      st.extras[key] = !st.extras[key];
+      this.classList.toggle('sel', st.extras[key]);
+      var chk = document.getElementById('chk' + key.charAt(0).toUpperCase() + key.slice(1));
+      if(chk) chk.textContent = st.extras[key] ? '✓' : '';
+    });
+  });
+
+  // Step 4
+  document.getElementById('btnBackS4').addEventListener('click', function(){ goTo('step3'); });
+  document.getElementById('btnNuevaCot').addEventListener('click', function(){ goTo('step1'); });
+  document.getElementById('btnAsesoria').addEventListener('click', function(){
+    st.capActivo = '';
+    abrirModal();
+  });
+
+  // Modal cerrar
+  document.getElementById('mOverlay').addEventListener('click', function(e){
+    if(e.target === this) this.classList.remove('open');
+  });
+});
+
+// ══════ LÓGICA ══════
+function cambiarCnt(key, delta){
+  var mn = {hab:1, ban:1}, mx = {hab:5, ban:4};
+  st[key] = Math.max(mn[key], Math.min(mx[key], st[key]+delta));
+  document.getElementById('v'+key.charAt(0).toUpperCase()+key.slice(1)).textContent = st[key];
+}
+
+function togEspacio(key){
+  st[key] = !st[key];
+  var T = key.charAt(0).toUpperCase() + key.slice(1);
+  document.getElementById('t'+T).classList.toggle('on', st[key]);
+  document.getElementById('s'+T).classList.toggle('on', st[key]);
+  if(key === 'cocina'){
+    document.getElementById('secCocina').style.display = st[key] ? 'block' : 'none';
+  }
+}
+
+function irS2(){
+  st.area = parseFloat(document.getElementById('areaInp').value) || 0;
+  if(st.area < 20){ alert('Por favor ingresa el área del apartamento (mínimo 20 m²)'); return; }
+  goTo('step2');
+}
+
+// ══════ CÁLCULO ══════
 function calcular(){
-  const a=st.area,hab=st.hab,ban=st.ban;
-  const aSala=st.sala?a*.30:0,aHabs=a*.45,aPiso=aSala+aHabs+(st.cocina?a*.12:0);
-  const aPar=a*2.8,aBal=st.balcon?a*.08:0,aEnch=5.5*2.4,aPintP=aPar-(aEnch*ban)-(st.cocina?4:0);
-  const caps=[];
+  var a=st.area, hab=st.hab, ban=st.ban;
+  var aSala=st.sala?a*.30:0, aHabs=a*.45;
+  var aPiso=aSala+aHabs+(st.cocina?a*.12:0);
+  var aPar=a*2.8, aBal=st.balcon?a*.08:0;
+  var aEnch=5.5*2.4;
+  var aPintP=aPar-(aEnch*ban)-(st.cocina?4:0);
+  var caps=[];
 
-  // Cap 10
-  const i10=[];
+  // Cap 10 — Pisos
+  var i10=[];
   i10.push({n:'Vaciado mortero nivelación',u:'m²',c:aPiso,v:P.mort_inst});
   i10.push({n:'Mortero de nivelación',u:'m³',c:aPiso/20,v:P.mort_mat});
-  if(st.piso==='p'){i10.push({n:'Piso porcelanato TEKA',u:'m²',c:aPiso,v:P.porc_mat});i10.push({n:'Instalación porcelanato',u:'m²',c:aPiso,v:P.porc_inst});i10.push({n:'Pegafast porcelanato',u:'bto',c:Math.ceil(aPiso/25),v:P.porc_peg})}
-  else{i10.push({n:'Piso cerámica Jaya',u:'m²',c:aPiso,v:P.cer_mat});i10.push({n:'Instalación cerámica',u:'m²',c:aPiso,v:P.cer_inst})}
-  const mlZ=Math.sqrt(aPiso)*4;
-  i10.push({n:'Zócalo material',u:'m²',c:mlZ*.1,v:P.zoc_mat});i10.push({n:'Instalación zócalo',u:'ml',c:mlZ,v:P.zoc_inst});
-  if(st.balcon){i10.push({n:'Piso Gress balcón',u:'m²',c:aBal,v:P.gress_mat});i10.push({n:'Instalación Gress',u:'m²',c:aBal,v:P.gress_inst})}
-  for(let i=0;i<ban;i++){const cm=st.bano==='c'?P.enc_c_mat:P.enc_p_mat,ci=st.bano==='c'?P.enc_c_inst:P.enc_p_inst,cn=st.bano==='c'?'Cerámica':'Premium';i10.push({n:`Enchape ${cn} baño ${i+1}`,u:'m²',c:aEnch,v:cm});i10.push({n:`Instalación enchape baño ${i+1}`,u:'m²',c:aEnch,v:ci})}
-  if(st.cocina){i10.push({n:'Salpicadero cocina mat.',u:'m²',c:4,v:P.salp_mat});i10.push({n:'Salpicadero cocina inst.',u:'m²',c:4,v:P.salp_inst})}
-  i10.push({n:'Transporte enchape',u:'glo',c:1,v:P.tr_enc});i10.push({n:'Transporte pegacor',u:'glo',c:1,v:P.tr_peg});
+  if(st.piso==='p'){
+    i10.push({n:'Piso porcelanato Premium',u:'m²',c:aPiso,v:P.porc_mat});
+    i10.push({n:'Instalación porcelanato',u:'m²',c:aPiso,v:P.porc_inst});
+    i10.push({n:'Pegafast porcelanato',u:'bto',c:Math.ceil(aPiso/25),v:P.porc_peg});
+  } else {
+    i10.push({n:'Piso cerámica Básica',u:'m²',c:aPiso,v:P.cer_mat});
+    i10.push({n:'Instalación cerámica',u:'m²',c:aPiso,v:P.cer_inst});
+  }
+  var mlZ=Math.sqrt(aPiso)*4;
+  i10.push({n:'Zócalo material',u:'m²',c:mlZ*.1,v:P.zoc_mat});
+  i10.push({n:'Instalación zócalo',u:'ml',c:mlZ,v:P.zoc_inst});
+  if(st.balcon){
+    i10.push({n:'Piso Gress balcón',u:'m²',c:aBal,v:P.gress_mat});
+    i10.push({n:'Instalación Gress',u:'m²',c:aBal,v:P.gress_inst});
+  }
+  for(var i=0;i<ban;i++){
+    var cm=st.bano==='c'?P.enc_c_mat:P.enc_p_mat;
+    var ci=st.bano==='c'?P.enc_c_inst:P.enc_p_inst;
+    var cn=st.bano==='c'?'Cerámica Básica':'Porcelanato Premium';
+    i10.push({n:'Enchape '+cn+' baño '+(i+1),u:'m²',c:aEnch,v:cm});
+    i10.push({n:'Instalación enchape baño '+(i+1),u:'m²',c:aEnch,v:ci});
+  }
+  if(st.cocina){
+    i10.push({n:'Salpicadero cocina mat.',u:'m²',c:4,v:P.salp_mat});
+    i10.push({n:'Salpicadero cocina inst.',u:'m²',c:4,v:P.salp_inst});
+  }
+  i10.push({n:'Transporte enchape',u:'glo',c:1,v:P.tr_enc});
+  i10.push({n:'Transporte pegacor',u:'glo',c:1,v:P.tr_peg});
   caps.push({n:'10. Pisos, zócalos y enchapes',items:i10});
 
-  // Cap 20
-  const i20=[];
-  if(st.pint==='c'){i20.push({n:'Estuco liso paredes',u:'m²',c:aPintP,v:P.estuco});i20.push({n:'Pintura fondeo paredes',u:'m²',c:aPintP,v:P.pint_f});i20.push({n:'Pintura 3 manos paredes',u:'m²',c:aPintP,v:P.pint_a});i20.push({n:'Estuco liso cielo',u:'m²',c:a,v:P.estuco});i20.push({n:'Pintura fondeo cielo',u:'m²',c:a,v:P.pint_f});i20.push({n:'Pintura 3 manos cielo',u:'m²',c:a,v:P.pint_a})}
-  else{i20.push({n:'Pintura fondeo paredes',u:'m²',c:aPintP,v:P.pint_f});i20.push({n:'Pintura 3 manos paredes',u:'m²',c:aPintP,v:P.pint_a});i20.push({n:'Pintura fondeo cielo',u:'m²',c:a,v:P.pint_f});i20.push({n:'Pintura 3 manos cielo',u:'m²',c:a,v:P.pint_a})}
-  for(let i=0;i<ban;i++){i20.push({n:`Pintura fondeo baño ${i+1}`,u:'m²',c:4,v:P.pint_f});i20.push({n:`Pintura 3 manos baño ${i+1}`,u:'m²',c:4,v:P.pint_a})}
+  // Cap 20 — Pintura
+  var i20=[];
+  if(st.pint==='c'){
+    i20.push({n:'Estuco liso paredes',u:'m²',c:aPintP,v:P.estuco});
+    i20.push({n:'Pintura fondeo paredes',u:'m²',c:aPintP,v:P.pint_f});
+    i20.push({n:'Pintura 3 manos paredes',u:'m²',c:aPintP,v:P.pint_a});
+    i20.push({n:'Estuco liso cielo',u:'m²',c:a,v:P.estuco});
+    i20.push({n:'Pintura fondeo cielo',u:'m²',c:a,v:P.pint_f});
+    i20.push({n:'Pintura 3 manos cielo',u:'m²',c:a,v:P.pint_a});
+  } else {
+    i20.push({n:'Pintura fondeo paredes',u:'m²',c:aPintP,v:P.pint_f});
+    i20.push({n:'Pintura 3 manos paredes',u:'m²',c:aPintP,v:P.pint_a});
+    i20.push({n:'Pintura fondeo cielo',u:'m²',c:a,v:P.pint_f});
+    i20.push({n:'Pintura 3 manos cielo',u:'m²',c:a,v:P.pint_a});
+  }
+  for(var j=0;j<ban;j++){
+    i20.push({n:'Pintura fondeo baño '+(j+1),u:'m²',c:4,v:P.pint_f});
+    i20.push({n:'Pintura 3 manos baño '+(j+1),u:'m²',c:4,v:P.pint_a});
+  }
   i20.push({n:'Transporte estuco y pintura',u:'glo',c:1,v:P.pint_tr});
   caps.push({n:'20. Estuco y pintura',items:i20});
 
-  // Cap 18
-  const i18=[];
-  for(let i=0;i<ban;i++){i18.push({n:`Sanitario baño ${i+1}`,u:'un',c:1,v:P.sanitario});i18.push({n:`Lavamanos baño ${i+1}`,u:'un',c:1,v:P.lavamanos});i18.push({n:`Grifería lavamanos ${i+1}`,u:'un',c:1,v:P.grif_l});i18.push({n:`Grifería ducha ${i+1}`,u:'un',c:1,v:P.grif_d});i18.push({n:`Instalación aparatos baño ${i+1}`,u:'un',c:1,v:P.inst_san});if(st.san==='p')i18.push({n:`Cabina de baño ${i+1}`,u:'un',c:1,v:P.cabina})}
+  // Cap 18 — Baños
+  var i18=[];
+  for(var k=0;k<ban;k++){
+    i18.push({n:'Sanitario baño '+(k+1),u:'un',c:1,v:P.sanitario});
+    i18.push({n:'Lavamanos baño '+(k+1),u:'un',c:1,v:P.lavamanos});
+    i18.push({n:'Grifería lavamanos '+(k+1),u:'un',c:1,v:P.grif_l});
+    i18.push({n:'Grifería ducha '+(k+1),u:'un',c:1,v:P.grif_d});
+    i18.push({n:'Instalación aparatos baño '+(k+1),u:'un',c:1,v:P.inst_san});
+    if(st.san==='p') i18.push({n:'Cabina de baño '+(k+1),u:'un',c:1,v:P.cabina});
+  }
   i18.push({n:'Transporte aparatos sanitarios',u:'glo',c:1,v:P.tr_san});
   caps.push({n:'18. Muebles y equipos de baños',items:i18});
 
-  if(st.cocina)caps.push({n:'19. Muebles y equipos de cocina',items:[{n:'Suministro mueble de cocina',u:'glo',c:1,v:P.mu_mat},{n:'Instalación mueble cocina',u:'glo',c:1,v:P.mu_inst},{n:'Transporte mueble cocina',u:'glo',c:1,v:P.mu_tr}]});
-  caps.push({n:'30. Aseo y limpieza',items:[{n:'Aseo y limpieza',u:'día',c:Math.ceil(a/20),v:P.aseo},{n:'Retiro de escombros',u:'viajes',c:Math.ceil(a/30),v:P.escombros}]});
-  if(st.extras.gas)caps.push({n:'13. Red de gas interior',items:[{n:'Calentador de gas',u:'un',c:1,v:P.cal},{n:'Transporte calentador',u:'un',c:1,v:P.tr_cal},{n:'Instalación y legalización red de gas',u:'un',c:1,v:P.gas_ins}]});
-  if(st.extras.closets)caps.push({n:'17. Carpintería madera',items:[{n:'Puertas habitaciones (0.80x2.10m)',u:'un',c:hab,v:P.p_hab},{n:'Puertas de baños (0.70x2.10m)',u:'un',c:ban,v:P.p_ban},{n:'Closet habitación principal',u:'un',c:1,v:P.cl_p},{n:'Closets secundarios',u:'un',c:Math.max(0,hab-1),v:P.cl_s},...(st.lavadero?[{n:'Mueble lavadero',u:'un',c:1,v:P.lavad}]:[]) ]});
-  if(st.extras.cieloFalso)caps.push({n:'15. Estructura liviana',items:[{n:'Cielo falso superboard 6mm baños',u:'m²',c:5.5*ban,v:P.cielo}]});
-  if(st.extras.revoque)caps.push({n:'9. Revoques',items:[{n:'Colocación revoque',u:'m²',c:aPar,v:P.rev_inst},{n:'Arena de revoque',u:'m³',c:aPar/10,v:P.rev_are},{n:'Cemento gris x 50kg',u:'bto',c:Math.ceil(aPar/8),v:P.rev_cem},{n:'Transporte cemento',u:'glo',c:1,v:P.rev_tr}]});
-  if(st.extras.electrica)caps.push({n:'12. Redes eléctricas',items:[{n:'Colocación aparatos eléctricos',u:'un',c:Math.ceil(a/5),v:P.ap_elec}]});
-  if(st.extras.hidro){const d=Math.ceil(ban*1.5);caps.push({n:'11. Red hidrosanitaria',items:[{n:'Tubo PVC sanitario 4"',u:'glo',c:ban,v:P.tub_san},{n:'Oficial plomero (sanitaria)',u:'día',c:d,v:P.plomero},{n:'Tubo 1/2" PVC-presión',u:'glo',c:ban,v:P.tub_ab},{n:'Oficial plomero (abasto)',u:'día',c:d,v:P.plomero}]})}
+  // Cap 19 — Cocina
+  if(st.cocina){
+    var nomCoc = {b:'Cocina Básica — mesón acero inox.',m:'Cocina Media con Barra',l:'Cocina Lujo 2m — mesón quartzstone'}[st.coc];
+    var valCoc = {b:P.coc_b,m:P.coc_m,l:P.coc_l}[st.coc];
+    caps.push({n:'19. Muebles y equipos de cocina',items:[
+      {n:nomCoc+' (suministro)',u:'glo',c:1,v:valCoc},
+      {n:'Instalación mueble de cocina',u:'glo',c:1,v:P.mu_inst},
+      {n:'Transporte mueble de cocina',u:'glo',c:1,v:P.mu_tr}
+    ]});
+  }
 
-  let gran=0;
-  const cT=caps.map(cap=>{const t=cap.items.reduce((s,i)=>s+(i.c*i.v),0);gran+=t;return{...cap,t}});
-  st.resultado=gran;
-  document.getElementById('resTotal').textContent=Math.round(gran).toLocaleString('es-CO');
-  document.getElementById('resTotal2').textContent=fmt(gran);
-  document.getElementById('resTags').innerHTML=`<div class="res-tag">📐 ${a} m²</div><div class="res-tag">🛏️ ${hab} hab</div><div class="res-tag">🚿 ${ban} baños</div>`+(st.cocina?'<div class="res-tag">🍳 Cocina</div>':'')+(st.balcon?'<div class="res-tag">🌿 Balcón</div>':'');
-  const listEl=document.getElementById('capsList');listEl.innerHTML='';
-  cT.forEach((cap,idx)=>{
-    const d=document.createElement('div');
-    d.className='cap-card';
-    d.innerHTML=`
-      <div class="cap-hdr" onclick="tC(${idx})">
-        <div class="cap-name">${cap.n}</div>
-        <div class="cap-tot">${fmt(cap.t)}</div>
-        <div class="cap-arr" id="ar${idx}">▼</div>
-      </div>
-      <div class="cap-body" id="cb${idx}">
-        ${cap.items.map(it=>`<div class="itm-row"><div class="itm-name">${it.n}</div><div class="itm-right"><div class="itm-calc">${it.c.toFixed(1)} ${it.u} × ${fmt(it.v)}</div><div class="itm-sub">${fmt(it.c*it.v)}</div></div></div>`).join('')}
-        <button onclick="abrirModalCap('${cap.n.replace(/'/g,"\\'")}')" style="margin-top:12px;width:100%;background:linear-gradient(135deg,var(--navy),var(--navy3));color:var(--gold2);border:none;border-radius:99px;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
-          📞 Contactar contratista para este capítulo
-        </button>
-      </div>`;
-    listEl.appendChild(d);
+  // Cap 30 — Aseo
+  caps.push({n:'30. Aseo y limpieza',items:[
+    {n:'Aseo y limpieza',u:'día',c:Math.ceil(a/20),v:P.aseo},
+    {n:'Retiro de escombros',u:'viajes',c:Math.ceil(a/30),v:P.escombros}
+  ]});
+
+  // Extras
+  if(st.extras.gas) caps.push({n:'13. Red de gas interior',items:[
+    {n:'Calentador de gas',u:'un',c:1,v:P.cal},
+    {n:'Transporte calentador',u:'un',c:1,v:P.tr_cal},
+    {n:'Instalación y legalización red de gas',u:'un',c:1,v:P.gas_ins}
+  ]});
+  if(st.extras.closets) caps.push({n:'17. Carpintería madera',items:[
+    {n:'Puertas habitaciones (0.80x2.10m)',u:'un',c:hab,v:P.p_hab},
+    {n:'Puertas de baños (0.70x2.10m)',u:'un',c:ban,v:P.p_ban},
+    {n:'Closet habitación principal',u:'un',c:1,v:P.cl_p},
+    {n:'Closets secundarios',u:'un',c:Math.max(0,hab-1),v:P.cl_s}
+  ].concat(st.lavadero?[{n:'Mueble lavadero',u:'un',c:1,v:P.lavad}]:[])});
+  if(st.extras.cieloFalso) caps.push({n:'15. Estructura liviana',items:[
+    {n:'Cielo falso superboard 6mm baños',u:'m²',c:5.5*ban,v:P.cielo}
+  ]});
+  if(st.extras.revoque) caps.push({n:'9. Revoques',items:[
+    {n:'Colocación revoque',u:'m²',c:aPar,v:P.rev_inst},
+    {n:'Arena de revoque (0.03 m³/m²)',u:'m³',c:aPar*0.03,v:P.rev_are},
+    {n:'Cemento gris x 50kg',u:'bto',c:Math.ceil(aPar/8),v:P.rev_cem},
+    {n:'Transporte cemento',u:'glo',c:1,v:P.rev_tr}
+  ]});
+  if(st.extras.electrica) caps.push({n:'12. Redes eléctricas',items:[
+    {n:'Colocación aparatos eléctricos',u:'un',c:Math.ceil(a/5),v:P.ap_elec}
+  ]});
+  if(st.extras.hidro){
+    var dp=Math.ceil(ban*1.5);
+    caps.push({n:'11. Red hidrosanitaria',items:[
+      {n:'Tubo PVC sanitario 4"',u:'glo',c:ban,v:P.tub_san},
+      {n:'Oficial plomero (sanitaria)',u:'día',c:dp,v:P.plomero},
+      {n:'Tubo 1/2" PVC-presión',u:'glo',c:ban,v:P.tub_ab},
+      {n:'Oficial plomero (abasto)',u:'día',c:dp,v:P.plomero}
+    ]});
+  }
+
+  // Totales
+  var gran=0;
+  var cT=caps.map(function(cap){
+    var t=cap.items.reduce(function(s,it){return s+(it.c*it.v);},0);
+    gran+=t;
+    return Object.assign({},cap,{t:t});
   });
+  st.resultado=gran;
+
+  document.getElementById('resTotal').textContent = Math.round(gran).toLocaleString('es-CO');
+  document.getElementById('resTotal2').textContent = fmt(gran);
+  document.getElementById('resTags').innerHTML =
+    '<div class="res-tag">📐 '+a+' m²</div>' +
+    '<div class="res-tag">🛏️ '+hab+' hab</div>' +
+    '<div class="res-tag">🚿 '+ban+' baños</div>' +
+    (st.cocina?'<div class="res-tag">🍳 Cocina</div>':'') +
+    (st.balcon?'<div class="res-tag">🌿 Balcón</div>':'');
+
+  var listEl=document.getElementById('capsList');
+  listEl.innerHTML='';
+  cT.forEach(function(cap,idx){
+    var d=document.createElement('div');
+    d.className='cap-card';
+    var itemsHtml=cap.items.map(function(it){
+      return '<div class="itm-row"><div class="itm-name">'+it.n+'</div><div class="itm-right"><div class="itm-calc">'+it.c.toFixed(1)+' '+it.u+' × '+fmt(it.v)+'</div><div class="itm-sub">'+fmt(it.c*it.v)+'</div></div></div>';
+    }).join('');
+    var capNombreEsc=cap.n.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    d.innerHTML=
+      '<div class="cap-hdr" id="hdr'+idx+'">' +
+        '<div class="cap-name">'+cap.n+'</div>' +
+        '<div class="cap-tot">'+fmt(cap.t)+'</div>' +
+        '<div class="cap-arr" id="ar'+idx+'">▼</div>' +
+      '</div>' +
+      '<div class="cap-body" id="cb'+idx+'">' +
+        itemsHtml +
+        '<button id="capBtn'+idx+'" style="margin-top:12px;width:100%;background:linear-gradient(135deg,var(--navy),var(--navy3));color:var(--gold2);border:none;border-radius:99px;padding:11px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;cursor:pointer">📞 Contactar contratista para este capítulo</button>' +
+      '</div>';
+    listEl.appendChild(d);
+    // Eventos sin onclick inline
+    document.getElementById('hdr'+idx).addEventListener('click',function(){
+      document.getElementById('cb'+idx).classList.toggle('open');
+      document.getElementById('ar'+idx).classList.toggle('open');
+    });
+    document.getElementById('capBtn'+idx).addEventListener('click',(function(nombre){
+      return function(){ st.capActivo=nombre; abrirModal(); };
+    })(cap.n));
+  });
+
   goTo('step4');
 }
-function abrirModalCap(capNombre){st.capActivo=capNombre;abrirModal()}
-function tC(i){document.getElementById('cb'+i).classList.toggle('open');document.getElementById('ar'+i).classList.toggle('open')}
 
-// ════ ENVIAR A SHEETS — CLIENTE ════
+// ══════ ENVIAR CLIENTE A SHEETS ══════
 async function enviarCliente(){
-  const n=document.getElementById('mNombre').value.trim(),w=document.getElementById('mWa').value.trim(),d=document.getElementById('mDir').value.trim(),e=document.getElementById('mEmail').value.trim();
-  if(!n||!w){alert('Por favor ingresa tu nombre y WhatsApp');return}
-  const capRef=st.capActivo?`Capítulo: ${st.capActivo}`:'Reforma completa';
-  const datos={tipo:'CLIENTE',fecha:new Date().toLocaleString('es-CO'),nombre:n,whatsapp:w,direccion:d,email:e,solicitud:capRef,area:st.area,habitaciones:st.hab,banos:st.ban,cocina:st.cocina?'Sí':'No',sala:st.sala?'Sí':'No',balcon:st.balcon?'Sí':'No',lavadero:st.lavadero?'Sí':'No',piso:st.piso==='p'?'Porcelanato Premium':'Cerámica Básica',bano:st.bano==='c'?'Cerámica Básica':'Porcelanato Premium',pintura:st.pint==='c'?'Estuco+Pintura':'Solo pintura',sanitarios:st.san==='b'?'Básico':'Premium',extras:Object.keys(st.extras).filter(k=>st.extras[k]).join(', ')||'Ninguno',presupuesto:st.resultado};
-  try{if(SHEETS_URL!=='TU_URL_AQUI')await fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(datos)})}catch(e){}
-  const msg=st.capActivo?`Te contactaremos por el capítulo <strong>${st.capActivo}</strong>.`:'Un asesor te contactará para coordinar toda la reforma.';
+  var n=document.getElementById('mNombre').value.trim();
+  var w=document.getElementById('mWa').value.trim();
+  var d=document.getElementById('mDir').value.trim();
+  var e=document.getElementById('mEmail').value.trim();
+  if(!n||!w){alert('Por favor ingresa tu nombre y WhatsApp');return;}
+  var capRef=st.capActivo?'Capítulo: '+st.capActivo:'Reforma completa';
+  var datos={
+    tipo:'CLIENTE',fecha:new Date().toLocaleString('es-CO'),
+    nombre:n,whatsapp:w,direccion:d,email:e,solicitud:capRef,
+    area:st.area,habitaciones:st.hab,banos:st.ban,
+    cocina:st.cocina?'Sí':'No',sala:st.sala?'Sí':'No',
+    balcon:st.balcon?'Sí':'No',lavadero:st.lavadero?'Sí':'No',
+    piso:st.piso==='p'?'Porcelanato Premium':'Cerámica Básica',
+    bano:st.bano==='c'?'Cerámica Básica':'Porcelanato Premium',
+    pintura:st.pint==='c'?'Estuco+Pintura':'Solo pintura',
+    sanitarios:st.san==='b'?'Básico':'Premium',
+    extras:Object.keys(st.extras).filter(function(k){return st.extras[k];}).join(', ')||'Ninguno',
+    presupuesto:st.resultado
+  };
+  try{
+    if(SHEETS_URL!=='TU_URL_AQUI'){
+      await fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(datos)});
+    }
+  }catch(err){}
+  var msg=st.capActivo
+    ?'Te contactaremos por el capítulo <strong>'+st.capActivo+'</strong>.'
+    :'Un asesor te contactará para coordinar toda la reforma.';
   st.capActivo='';
-  document.getElementById('mContent').innerHTML=`<div style="text-align:center;padding:16px 0"><div class="success-check">✅</div><div class="modal-title" style="text-align:center">¡Solicitud enviada!</div><div class="modal-sub" style="text-align:center">${msg} Te escribiremos al WhatsApp <strong>${w}</strong> en menos de 2 horas.</div><div style="background:var(--off2);border-radius:var(--r-sm);padding:14px;margin-top:16px;text-align:left"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px">Presupuesto total</div><div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--navy)">${fmt(st.resultado)}</div><div style="font-size:12px;color:var(--text3);margin-top:2px">Materiales y mano de obra</div></div><button onclick="document.getElementById('mOverlay').classList.remove('open')" style="margin-top:18px;width:100%;background:var(--navy);color:var(--gold2);border:none;border-radius:99px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer">Cerrar</button></div>`;
+  document.getElementById('mContent').innerHTML=
+    '<div style="text-align:center;padding:14px 0">' +
+    '<div class="success-check">✅</div>' +
+    '<div class="modal-title" style="text-align:center">¡Solicitud enviada!</div>' +
+    '<div class="modal-sub" style="text-align:center">'+msg+' Te escribiremos al <strong>'+w+'</strong> en menos de 2h.</div>' +
+    '<div style="background:var(--off2);border-radius:var(--r-sm);padding:14px;margin-top:14px;text-align:left">' +
+      '<div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px">Presupuesto total</div>' +
+      '<div style="font-family:Playfair Display,serif;font-size:24px;font-weight:800;color:var(--navy)">'+fmt(st.resultado)+'</div>' +
+    '</div>' +
+    '<button id="btnCerrarModal" style="margin-top:16px;width:100%;background:var(--navy);color:var(--gold2);border:none;border-radius:99px;padding:14px;font-family:DM Sans,sans-serif;font-size:15px;font-weight:600;cursor:pointer">Cerrar</button>' +
+    '</div>';
+  document.getElementById('btnCerrarModal').addEventListener('click',function(){
+    document.getElementById('mOverlay').classList.remove('open');
+  });
 }
 
-// ════ ENVIAR A SHEETS — CONTRATISTA ════
+// ══════ REGISTRAR CONTRATISTA ══════
 async function regContratista(){
-  const n=document.getElementById('cNombre').value.trim(),w=document.getElementById('cWa').value.trim(),c=document.getElementById('cCiudad').value.trim(),e=document.getElementById('cEsp').value,x=document.getElementById('cExp').value.trim(),m=document.getElementById('cEmail').value.trim();
-  if(!n||!w||!c||!e){alert('Por favor completa nombre, WhatsApp, ciudad y especialidad');return}
-  const datos={tipo:'CONTRATISTA',fecha:new Date().toLocaleString('es-CO'),nombre:n,whatsapp:w,ciudad:c,especialidad:e,experiencia:x,email:m,plan:st.planCont==='pro'?'Plan Pro — $350.000/mes':'Plan Básico — $150.000/mes',estado:'Nuevo'};
-  try{if(SHEETS_URL!=='TU_URL_AQUI')await fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(datos)})}catch(e){}
-  document.getElementById('contScroll').innerHTML=`<div style="text-align:center;padding:40px 16px"><div style="font-size:60px;margin-bottom:20px">🎉</div><div class="h1" style="text-align:center">¡Bienvenido a<br><span>ReformApp!</span></div><div class="sub" style="text-align:center;margin-top:12px">Tu registro fue exitoso. En menos de 24 horas activamos tu perfil y empezarás a recibir clientes por WhatsApp al número <strong>${w}</strong>.</div><div style="background:var(--off2);border-radius:var(--r);padding:20px;margin:24px 0;text-align:left"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:12px">Resumen de tu registro</div><div style="display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--text2)"><div>👤 <strong>${n}</strong></div><div>📱 WhatsApp: <strong>${w}</strong></div><div>📍 Ciudad: <strong>${c}</strong></div><div>🔧 Especialidad: <strong>${e}</strong></div><div>⭐ Plan: <strong>${st.planCont==='pro'?'Plan Pro — $350.000/mes':'Plan Básico — $150.000/mes'}</strong></div></div></div><button onclick="goTo('splash')" style="width:100%;background:linear-gradient(135deg,var(--navy),var(--navy3));color:var(--gold2);border:none;border-radius:99px;padding:16px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer">Volver al inicio</button></div>`;
+  var n=document.getElementById('cNombre').value.trim();
+  var w=document.getElementById('cWa').value.trim();
+  var c=document.getElementById('cCiudad').value.trim();
+  var e=document.getElementById('cEsp').value;
+  var x=document.getElementById('cExp').value.trim();
+  var m=document.getElementById('cEmail').value.trim();
+  if(!n||!w||!c||!e){alert('Por favor completa nombre, WhatsApp, ciudad y especialidad');return;}
+  var datos={
+    tipo:'CONTRATISTA',fecha:new Date().toLocaleString('es-CO'),
+    nombre:n,whatsapp:w,ciudad:c,especialidad:e,experiencia:x,email:m,
+    plan:'Suscripción Gratuita — Tiempo Limitado',estado:'Nuevo'
+  };
+  try{
+    if(SHEETS_URL!=='TU_URL_AQUI'){
+      await fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(datos)});
+    }
+  }catch(err){}
   document.getElementById('botCont').style.display='none';
+  document.getElementById('contScroll').innerHTML=
+    '<div style="text-align:center;padding:40px 16px">' +
+    '<div style="font-size:58px;margin-bottom:18px">🎉</div>' +
+    '<div class="h1" style="text-align:center">¡Bienvenido a<br><span>ReformApp!</span></div>' +
+    '<div class="sub" style="text-align:center;margin-top:10px">Registro exitoso. En menos de 24h activamos tu perfil. Te escribiremos al <strong>'+w+'</strong>.</div>' +
+    '<div style="background:var(--off2);border-radius:var(--r);padding:18px;margin:20px 0;text-align:left">' +
+      '<div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px">Resumen</div>' +
+      '<div style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:var(--text2)">' +
+        '<div>👤 <strong>'+n+'</strong></div>' +
+        '<div>📱 <strong>'+w+'</strong></div>' +
+        '<div>📍 <strong>'+c+'</strong></div>' +
+        '<div>🔧 <strong>'+e+'</strong></div>' +
+        '<div>🎁 <strong style="color:var(--success)">Suscripción Gratuita</strong></div>' +
+      '</div>' +
+    '</div>' +
+    '<button id="btnVolverInicio" style="width:100%;background:linear-gradient(135deg,var(--navy),var(--navy3));color:var(--gold2);border:none;border-radius:99px;padding:15px;font-family:DM Sans,sans-serif;font-size:15px;font-weight:600;cursor:pointer">Volver al inicio</button>' +
+    '</div>';
+  document.getElementById('btnVolverInicio').addEventListener('click',function(){goTo('splash');});
 }
 </script>
-
-<!--
-╔══════════════════════════════════════════════════════════════╗
-║          CONECTAR GOOGLE SHEETS EN 3 PASOS SIMPLES          ║
-╠══════════════════════════════════════════════════════════════╣
-║                                                              ║
-║  PASO 1 — Crea la hoja en sheets.google.com                  ║
-║  Nómbrala "ReformApp - Contactos"                            ║
-║  (La app guarda todo automáticamente sin columnas previas)   ║
-║                                                              ║
-║  PASO 2 — Abre Apps Script                                   ║
-║  En la hoja: Extensiones → Apps Script                       ║
-║  Borra el código y pega esto:                                ║
-║                                                              ║
-║  function doPost(e) {                                        ║
-║    var datos = JSON.parse(e.postData.contents);              ║
-║    var hoja = SpreadsheetApp                                 ║
-║      .getActiveSpreadsheet().getActiveSheet();               ║
-║    var vals = Object.values(datos);                          ║
-║    hoja.appendRow(vals);                                     ║
-║    return ContentService                                     ║
-║      .createTextOutput(JSON.stringify({ok:true}))            ║
-║      .setMimeType(ContentService.MimeType.JSON);             ║
-║  }                                                           ║
-║                                                              ║
-║  PASO 3 — Publicar                                           ║
-║  Clic en "Implementar" → "Nueva implementación"              ║
-║  Tipo: Aplicación web                                        ║
-║  Ejecutar como: Yo mismo                                     ║
-║  Acceso: Cualquier persona                                   ║
-║  → Copia la URL → Pégala en SHEETS_URL arriba                ║
-║                                                              ║
-║  ✅ Listo. Cada cliente y contratista queda guardado         ║
-║  automáticamente en tu hoja de Google con fecha,             ║
-║  datos de contacto y presupuesto.                            ║
-╚══════════════════════════════════════════════════════════════╝
--->
 </body>
 </html>
