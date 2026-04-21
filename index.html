@@ -690,7 +690,13 @@ async function enviarCliente(){
   };
   try{
     if(SHEETS_URL!=='TU_URL_AQUI'){
-      await fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(datos)});
+      await fetch(SHEETS_URL, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(datos)
+});
     }
   }catch(err){}
   var msg=st.capActivo
