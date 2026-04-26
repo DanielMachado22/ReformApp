@@ -324,8 +324,8 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
 // ══════════════════════════════════════
 // GOOGLE SHEETS — pega tu URL aquí
 // ══════════════════════════════════════
-const SHEETS_URL = "https://script.google.com/macros/s/AKfycbwRVuTdazX1XUn0PaMuSHXxXlGO8-FpjDgOpZEyoWOcNmvIimlJtumx1CuWO-znPFom/exec";
-
+const SHEETS_CONTRATISTAS_URL = "https://script.google.com/macros/s/AKfycbwRVuTdazX1XUn0PaMuSHXxXlGO8-FpjDgOpZEyoWOcNmvIimlJtumx1CuWO-znPFom/exec";
+const SHEETS_CLIENTES_URL = "https://script.google.com/macros/s/AKfycbzse7AhyWF-FlcoD-Tupzt6uzWi8hJYsmI97m48DZq7WpnJFlltI_C2TeL8TbjkxdKG/exec";
 // ══════ STATE ══════
 const st = {
   area:0, hab:2, ban:1,
@@ -655,7 +655,7 @@ function calcular(){
       '</div>' +
       '<div class="cap-body" id="cb'+idx+'">' +
         itemsHtml +
-        '<button id="capBtn'+idx+'" style="margin-top:12px;width:100%;background:linear-gradient(135deg,var(--navy),var(--navy3));color:var(--gold2);border:none;border-radius:99px;padding:11px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;cursor:pointer">📞 Contactar contratista para este capítulo</button>' +
+        '<button id="capBtn'+idx+'" style="margin-top:12px;width:100%;background:linear-gradient(135deg,var(--navy),var(--navy3));color:var(--gold2);border:none;border-radius:99px;padding:11px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;cursor:pointer">📞 Contactar contratista verificado</button>' +
       '</div>';
     listEl.appendChild(d);
     // Eventos sin onclick inline
@@ -693,14 +693,8 @@ async function enviarCliente(){
     presupuesto:st.resultado
   };
   try{
-    if(SHEETS_URL!=='TU_URL_AQUI'){
-      await fetch(SHEETS_URL, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(datos)
-});
+    if(SHEETS_CLIENTES_URL!=='TU_URL_AQUI'){
+   await fetch(SHEETS_CLIENTES_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(datos)});
     }
   }catch(err){}
   var msg=st.capActivo
@@ -739,7 +733,7 @@ async function regContratista(){
   };
   try{
     if(SHEETS_URL!=='TU_URL_AQUI'){
-      await fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(datos)});
+      await fetch(SHEETS_CONTRATISTAS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(datos)});
     }
   }catch(err){}
   document.getElementById('botCont').style.display='none';
