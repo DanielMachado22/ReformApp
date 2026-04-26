@@ -295,7 +295,7 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
       <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold2)" id="resTotal2">$0</div>
     </div>
     <div class="divider"></div>
-    <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px">Contratistas disponibles</div>
+    <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px">Contactar contratista verificado</div>
     <div style="font-size:13px;color:var(--text3);margin-bottom:14px">Medellín · Verificados por ReformApp</div>
     <div class="cont-card"><div class="cont-av" style="background:#EEF2FF">🦺</div><div class="cont-info"><div class="cont-name">Carlos Mejía Obras</div><div class="cont-spec">Remodelaciones VIS y No-VIS · 8 años</div><div class="cont-stars">★★★★★ <span style="color:var(--text3)">4.9 (47)</span></div><span class="cont-badge">✓ Verificado</span></div><div class="cont-plan">Plan Pro<br><span style="color:var(--text3);font-weight:400">Resp. &lt;2h</span></div></div>
     <div class="cont-card"><div class="cont-av" style="background:var(--success-bg)">🔨</div><div class="cont-info"><div class="cont-name">Reformas Antioquia SAS</div><div class="cont-spec">Acabados completos · 12 años</div><div class="cont-stars">★★★★☆ <span style="color:var(--text3)">4.7 (92)</span></div><span class="cont-badge">✓ Verificado</span></div><div class="cont-plan">Plan Pro<br><span style="color:var(--text3);font-weight:400">Resp. &lt;4h</span></div></div>
@@ -304,7 +304,7 @@ body{font-family:'DM Sans',sans-serif;background:#0B1E3F;min-height:100vh;displa
       <div style="font-size:18px;margin-bottom:8px">🏗️</div>
       <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.2">¿Quieres contratar toda la reforma?</div>
       <div style="font-size:13px;color:var(--navy);opacity:.75;margin-bottom:18px;line-height:1.6">Contáctanos para una asesoría personalizada. Te acompañamos desde la cotización hasta la entrega final.</div>
-      <button id="btnAsesoria" style="width:100%;background:var(--navy);color:var(--gold2);border:none;border-radius:99px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer">Quiero asesoría personalizada →</button>
+      <button id="btnAsesoria" style="width:100%;background:var(--navy);color:var(--gold2);border:none;border-radius:99px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer">Quiero asesoría GRATIS por WhatsApp 📩→</button>
     </div>
     <div style="text-align:center;margin-top:20px"><button id="btnNuevaCot" style="background:none;border:none;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-decoration:underline">Nueva cotización</button></div>
   </div>
@@ -453,8 +453,12 @@ window.addEventListener('DOMContentLoaded', function(){
   document.getElementById('btnBackS4').addEventListener('click', function(){ goTo('step3'); });
   document.getElementById('btnNuevaCot').addEventListener('click', function(){ goTo('step1'); });
   document.getElementById('btnAsesoria').addEventListener('click', function(){
-    st.capActivo = '';
-    abrirModal();
+    const mensaje = encodeURIComponent(
+    `Hola, acabo de usar ReformApp y quiero asesoría sobre mi reforma.
+    Área: ${st.area} m2
+    presupuesto: $${Math.round(st.resultado).toLocaleString('es-CO')}`
+  );
+  window.open("https://wa.me/573169274523?text=" + mensaje, "_blank");
   });
 
   // Modal cerrar
